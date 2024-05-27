@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+import "./glonalStyles/normalize.css";
+import "./glonalStyles/globals.css";
+import "./glonalStyles/header.css";
+import './glonalStyles/menu.css'
 import { Inter } from "next/font/google";
-import "./globals.css";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 

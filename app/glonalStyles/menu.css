@@ -1,0 +1,140 @@
+.nav-menu{
+  z-index: 1;
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate3d(0, 0, 0, 0);
+  backface-visibility: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.nav-menu__conteiner{
+  position: relative;
+}
+.nav-menu__logo{
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  margin-bottom: 150px;
+}
+
+.nav-menu::-webkit-scrollbar {
+  width: 8px;
+}
+.nav-menu::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+.nav-menu::-webkit-scrollbar-thumb {
+  background-color: #9466FF;
+  border-radius: 3px;
+}
+
+.nav-menu::-webkit-scrollbar-thumb:hover {
+  background-color: #70F;
+}
+.nav-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 100%;
+  transform: scale(0.04), translatey(9999px);
+  overflow: hidden;
+  background-color: rgb(181, 179, 181);
+}
+
+.nav-menu.open {
+  top: 0;
+}
+
+.nav-menu.open::before {
+  animation: menu-animation 0.5s forwards;
+}
+.nav-menu__close{
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  z-index: 1;
+  opacity: 0;
+  transform: rotate3d(0, 36px, 0);
+}
+
+.nav-menu__close.open,
+.nav-menu__logo.open{
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+  transition-delay: .6s;
+}
+
+.nav-menu__close::before{
+  background-color: #E8E9EA;
+  content: '';
+  height: 100%;
+  width: 100%;
+  left: 3px;
+  position: absolute;
+  top: 0;
+  -webkit-mask: url("/img/Close-small.svg") no-repeat 50% 50%;
+  mask: url("/img/Close-small.svg") no-repeat 50% 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-menu__close:hover::before{
+  transition: baground-color 0.2s ease-in-out;
+  background-color: #9466FF;
+
+}
+
+.nav-menu__close.open{
+  opacity: 1;
+  transform: rotate3d(0, 0, 0, 0);
+  transition: transform 0.2s ease-in-out,
+   opacity 0.2s ease-in-out;
+   transition-delay: .6s;
+}
+
+
+@keyframes menu-animation {
+  0% {
+    opacity: 0;
+    transform: scale(0.04) translateY(300%);
+  }
+  40% {
+    transform: scale(0.04) translateY(0);
+    transition: ease-in-out;
+  }
+  40% {
+    transform: scale(0.04)  translateY(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.02)  translateY(0);
+  }
+  61% {
+    transform: scale(0.04);
+  }
+
+  99.9% {
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 100%;
+  }
+
+  100% {
+    transform: scale(2);
+    height: 100%;
+    padding-bottom: 0;
+    border-radius: 0;
+  }
+}
