@@ -1,4 +1,5 @@
 import { IMenuLinkItemProps } from "@/app/types/modules"
+import React from "react";
 import Link from "next/link";
 
 
@@ -6,16 +7,17 @@ const MenuLinkItem = ({
 item,
 handleRedirectToCatalog,
 } : IMenuLinkItemProps) => {
- const  onRedirect = () => {
-    handleRedirectToCatalog(item.href);
-  }
+
+ const  onRedirect = () => { handleRedirectToCatalog(item.href); }
 return (
   <li key={item.id} className="nav-menu__accordion__item__list__item">
     <Link
     href={item.href}
     className="nav-menu__accordion__item__list__item__link"
     onClick={onRedirect}
-    ></Link>
+    >
+      {item.text}
+    </Link>
   </li>
 )
   

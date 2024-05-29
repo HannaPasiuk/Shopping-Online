@@ -8,28 +8,31 @@ import Logo from "../../elements/Logo/Logo";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import MenuLinkItem from "./MenuLinkItem";
-import words from "../../../../public/words/words.json";
 import Accordion from "../Accordion/Accordion";
+import Link from "next/link";
+import { useMediaQuery } from "@/app/hooks/useMeidaQuery";
+import BuyersListItems from "./buyersListItems";
+import ContactsListItems from "./contactsListItem";
 
 
 
 
 
 const Menu = () => {
-  const [showcatalogList, setShowcatalogList] = useState(false);
-  const [showBurgerList, setShowBurgerList] = useState(false);
+  const [showCatalogList, setShowCatalogList] = useState(false);
+  const [showBuyersList, setShowBuyersList] = useState(false);
   const [showContactsList, setShowContactsList] = useState(false);
-
-
   const menuIsOpen = useUnit($menuIsOpen);
   const pathname = usePathname();
+  const isMedia800 = useMediaQuery(800);
+  const isMedia640 = useMediaQuery(640);
 
 
-const handleShowCatalogList = () => {
-  setShowcatalogList(true)
-  setShowBurgerList(false)
-  setShowContactsList(false)
-}
+  const handleShowCatalogList = () => {
+    setShowCatalogList(true)
+    setShowBuyersList(false)
+    setShowContactsList(false)
+  }
 
 
   const handleCloseMenu = () => {
@@ -38,7 +41,7 @@ const handleShowCatalogList = () => {
   }
 
 
- const handleRedirectToCatalog = (path: string) => {
+  const handleRedirectToCatalog = (path: string) => {
     if (pathname.includes('/catalog')) {
       window.history.pushState({ path }, '', path)
       window.location.reload()
@@ -46,25 +49,38 @@ const handleShowCatalogList = () => {
 
     handleCloseMenu()
   }
-const clothLinks = [
+
+  const handleShowBuyersList = () => {
+    setShowCatalogList(false)
+    setShowBuyersList(true)
+    setShowContactsList(false)
+  }
+
+  const handleShowContactsList = () => {
+    setShowCatalogList(false)
+    setShowBuyersList(false)
+    setShowContactsList(true)
+  }
+
+  const clothLinks = [
     {
       id: 1,
-      text: words.comparison['t-shirts'],
+      text: 't-shirts',
       href: '/catalog/cloth?offset=0&type=t-shirts',
     },
     {
       id: 2,
-      text:   words.comparison['long-sleeves'],
+      text: 'long-sleeves',
       href: '/catalog/cloth?offset=0&type=long-sleeves',
     },
     {
       id: 3,
-      text: words.comparison.hoodie,
+      text: "hoodie",
       href: '/catalog/cloth?offset=0&type=hoodie',
     },
     {
       id: 4,
-      text: words.comparison.outerwear,
+      text: "outerwear",
       href: '/catalog/cloth?offset=0&type=outerwear',
     },
   ]
@@ -72,17 +88,17 @@ const clothLinks = [
   const accessoriesLinks = [
     {
       id: 1,
-      text: words.comparison.bags,
+      text: "bags",
       href: '/catalog/accessories?offset=0&type=bags',
     },
     {
       id: 2,
-      text: words.comparison.headdress,
+      text: "headdress",
       href: '/catalog/accessories?offset=0&type=headdress',
     },
     {
       id: 3,
-      text: words.comparison.umbrella,
+      text: "umbrella",
       href: '/catalog/accessories?offset=0&type=umbrella',
     },
   ]
@@ -90,12 +106,12 @@ const clothLinks = [
   const souvenirsLinks = [
     {
       id: 1,
-      text: words.comparison['business-souvenirs'],
+      text: 'business-souvenirs',
       href: '/catalog/souvenirs?offset=0&type=business-souvenirs',
     },
     {
       id: 2,
-      text: words.comparison['promotional-souvenirs'],
+      text: 'promotional-souvenirs',
       href: '/catalog/souvenirs?offset=0&type=promotional-souvenirs',
     },
   ]
@@ -103,22 +119,25 @@ const clothLinks = [
   const officeLinks = [
     {
       id: 1,
-      text: words.comparison.notebook,
+      text: "notebook",
       href: '/catalog/office?offset=0&type=notebook',
     },
     {
       id: 2,
-      text: words.comparison.pen,
+      text: "comparison.pen",
       href: '/catalog/office?offset=0&type=pen',
     },
   ]
- 
 
-  
+
+
 
   return (
+
     <nav className={`nav-menu ${menuIsOpen ? 'open' : 'close'}`}>
       <div className="conteiner nav-menu__conteiner">
+        <div className="nav-menu__"></div>
+
         <div className={`nav-menu__logo ${menuIsOpen ? 'open' : ''}`}>
           <Logo />
         </div>
@@ -129,14 +148,14 @@ const clothLinks = [
         />
 
         <ul className={`list-reset nav-menu__list ${menuIsOpen ? 'open' : ''}`}>
-          <li className="nav-menu__list__item">
+          {!isMedia800 && <li className="nav-menu__list__item">
             <button className="btn-reset nav-menu__list__item__btn"
-            onMouseEnter={handleShowCatalogList}>
-              {words.main_menu.catalog}
+              onMouseEnter={handleShowCatalogList}>
+              {"Catalog"}
             </button>
 
             <AnimatePresence>
-              {showcatalogList && (
+              {showCatalogList && (
                 <motion.ul
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -145,10 +164,10 @@ const clothLinks = [
                 >
                   <li className="nav-menu__accordion__item">
                     <Accordion
-                      title={words.main_menu.cloth}
+                      title={"Cloth"}
                       titleClass='btn-reset nav-menu__accordion__item__title'
                     >
-                        <ul className="list-reset nav-menu__accordion__item__list">
+                      <ul className="list-reset nav-menu__accordion__item__list">
                         {clothLinks.map((item) => (
                           <MenuLinkItem
                             key={item.id}
@@ -163,16 +182,16 @@ const clothLinks = [
 
                   <li className="nav-menu__accordion__item">
                     <Accordion
-                      title={words.main_menu.accessories}
+                      title={"accessories"}
                       titleClass='btn-reset nav-menu__accordion__item__title'
                     >
-                        <ul className="list-reset nav-menu__accordion__item__list">
+                      <ul className="list-reset nav-menu__accordion__item__list">
                         {accessoriesLinks.map((item) => (
                           <MenuLinkItem
                             key={item.id}
                             item={item}
                             handleRedirectToCatalog={handleRedirectToCatalog}
-                            
+
                           />
                         ))}
                       </ul>
@@ -182,10 +201,10 @@ const clothLinks = [
 
                   <li className="nav-menu__accordion__item">
                     <Accordion
-                      title={words.main_menu.souvenirs}
+                      title={"souvenirs"}
                       titleClass='btn-reset nav-menu__accordion__item__title'
                     >
-                        <ul className="list-reset nav-menu__accordion__item__list">
+                      <ul className="list-reset nav-menu__accordion__item__list">
                         {souvenirsLinks.map((item) => (
                           <MenuLinkItem
                             key={item.id}
@@ -197,14 +216,12 @@ const clothLinks = [
                     </Accordion>
                   </li>
 
-
-
                   <li className="nav-menu__accordion__item">
                     <Accordion
-                      title={words.main_menu.office}
+                      title={"office"}
                       titleClass='btn-reset nav-menu__accordion__item__title'
                     >
-                        <ul className="list-reset nav-menu__accordion__item__list">
+                      <ul className="list-reset nav-menu__accordion__item__list">
                         {officeLinks.map((item) => (
                           <MenuLinkItem
                             key={item.id}
@@ -220,9 +237,72 @@ const clothLinks = [
                 </motion.ul>
               )}
             </AnimatePresence>
+          </li> 
+           }
+
+          <li className="nav-menu__list__item">
+            {(!isMedia640 && 
+            <button className="btn-reset nav-menu__list__item__btn"
+              onMouseEnter={handleShowBuyersList}>
+              {"Buyers"}
+            </button>)}
+            { !isMedia640 &&(<AnimatePresence>
+              {showBuyersList && (
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className='list-reset nav-menu__accordion'
+                >
+               <BuyersListItems/>
+                </motion.ul>
+              )}
+            </AnimatePresence>)}
+
+            {isMedia640 && (
+              <Accordion
+                title={"Buyers"}
+                titleClass='btn-reset nav-menu__list__item__btn'
+              >
+                <ul className='list-reset nav-menu__accordion__item__list'>
+                  <BuyersListItems />
+                </ul>
+              </Accordion>
+            )}
           </li>
-          <li className="nav-menu__list__item"></li>
-          <li className="nav-menu__list__item"></li>
+
+
+          
+          <li className="nav-menu__list__item">
+            { !isMedia640 &&
+            (<button className="btn-reset nav-menu__list__item__btn"
+              onMouseEnter={handleShowContactsList}>
+              {"Contacts"}
+            </button>)}
+            { !isMedia640 && (<AnimatePresence>
+              {showContactsList && (
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className='list-reset nav-menu__accordion'>
+                 <ContactsListItems/>
+                </motion.ul>
+              )}
+            </AnimatePresence>)}
+
+            {isMedia640 && (
+              <Accordion
+                title={"Contacts"}
+                titleClass='btn-reset nav-menu__list__item__btn'
+              >
+                <ul className='list-reset nav-menu__accordion__item__list'>
+                  <ContactsListItems />
+                </ul>
+              </Accordion>
+            )}
+
+          </li>
         </ul>
       </div>
     </nav>
