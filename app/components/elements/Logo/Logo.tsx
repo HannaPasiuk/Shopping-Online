@@ -3,7 +3,7 @@ import '../../../glonalStyles/header.css'
 
 
 const Logo = () => (
-  <div className="logo__conteiner">
+  <div className="logo__conteiner ">
   <Link className="logo" href="/">
     <img
     className="logo__img"

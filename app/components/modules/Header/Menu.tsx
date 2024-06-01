@@ -1,15 +1,15 @@
 'use client'
 
-import { $menuIsOpen, closeMenu } from "@/app/context/madals";
+
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useUnit } from "effector-react";
 import { removeOverFlowHiddenFromBody } from "@/app/lib/utils/common";
 import Logo from "../../elements/Logo/Logo";
-import { AnimatePresence, motion } from "framer-motion";
+import { $menuIsOpen, closeMenu } from "@/app/context/modals";
 import { usePathname } from "next/navigation";
 import MenuLinkItem from "./MenuLinkItem";
 import Accordion from "../Accordion/Accordion";
-import Link from "next/link";
 import { useMediaQuery } from "@/app/hooks/useMeidaQuery";
 import BuyersListItems from "./buyersListItems";
 import ContactsListItems from "./contactsListItem";
@@ -135,9 +135,7 @@ const Menu = () => {
   return (
 
     <nav className={`nav-menu ${menuIsOpen ? 'open' : 'close'}`}>
-      <div className="conteiner nav-menu__conteiner">
-        <div className="nav-menu__"></div>
-
+      <div className=" nav-menu__conteiner">
         <div className={`nav-menu__logo ${menuIsOpen ? 'open' : ''}`}>
           <Logo />
         </div>

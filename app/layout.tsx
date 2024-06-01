@@ -6,6 +6,8 @@ import "./glonalStyles/header.css";
 import './glonalStyles/menu.css'
 import './glonalStyles/mobile-navbar.css'
 import './glonalStyles/catalog-menu.css'
+import './glonalStyles/search-modal.css'
+import './glonalStyles/footer.css'
 import Layout from "./components/layouts/layout";
 
 

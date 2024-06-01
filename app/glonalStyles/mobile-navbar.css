@@ -1,6 +1,6 @@
 .mobile-navbar {
-  position: fixed;
-  bottom: 0;
+  position: static;
+  bottom: 96px;
   left: 0;
   right: 0;
   padding: 20px 24px;
@@ -45,8 +45,17 @@
   background-position: top 13px center;
 }
 
+@media (max-width: 640px) {
+  .mobile-navbar {
+    bottom: 80px;
+  }
+}
 @media (max-width: 450px) {
   .mobile-navbar {
     padding: 10px 15px;
+  }
+  .mobile-navbar__btn{
+     font-size: 12px;
+     height: 48px;
   }
 }

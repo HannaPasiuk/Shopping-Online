@@ -4,7 +4,7 @@ import {
   closeMenu,
   openCataogMenu,
   openMenu
-} from "@/app/context/madals"
+} from "@/app/context/modals"
 import { addOverFlowHiddenToBody } from "@/app/lib/utils/common"
 import CatalogMenu from "../Header/CatalogMenu"
 

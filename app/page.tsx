@@ -1,11 +1,8 @@
-import Header from "./components/modules/Header/Header";
+import MainPage from "./components/templetas/MainPage/MainPage";
 
- 
 
 export default function Home() {
   return (
-    <main>
-     <h1>Page</h1>
-    </main>
+   <MainPage/>
   );
 }
