@@ -71,8 +71,8 @@ transform: translateX(-65%);
 }
 
 .header__links__item__btn--card::before{
-  -webkit-mask: url('/img/card.svg') no-repeat 50% 50%;
-  mask: url('/img/card.svg') no-repeat 50% 50%;
+  -webkit-mask: url('/img/cart.svg') no-repeat 50% 50%;
+  mask: url('/img/cart.svg') no-repeat 50% 50%;
 }
 
 .header__links__item__btn--profile::before{
