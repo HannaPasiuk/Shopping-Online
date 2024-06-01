@@ -12,10 +12,10 @@ export const addOverFlowHiddenToBody = (paddingRight = '') => {
 }
 
 export const getWindowWidth = () => {
-  const {innerWidth: windowWidth} = 
-  typeof window !== 'undefined' ? window : {innerWidth};
+  const { innerWidth: windowWidth } =
+    typeof window !== 'undefined' ? window : { innerWidth: 0 }
 
-  return windowWidth
+  return { windowWidth }
 }
 
 export const handleCloseSearchModal = () => {

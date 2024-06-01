@@ -1,4 +1,4 @@
-import styles from '../../../../styles/main-page/index.module.scss'
+import styles from '../../../../../styles/main-page/index.module.scss'
 
 const Hero = () => {
 
