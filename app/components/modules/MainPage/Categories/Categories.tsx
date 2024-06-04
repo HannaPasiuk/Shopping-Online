@@ -60,7 +60,8 @@ const Categories = () => {
                   className='transition-opacity opacity-0 duration'
                   src={imgCategoriesClothes}
                   alt="Cloth"
-                  onLoadingComplete={handleLoadingImageComplete}
+                  priority
+                  onLoad={e => handleLoadingImageComplete(e.target as HTMLImageElement)}
                 />
                 <span>Cloth</span>
               </Link>
@@ -74,7 +75,8 @@ const Categories = () => {
                       className='transition-opacity opacity-0 duration'
                       src={imgCategoriesAccessories}
                       alt="Accessories"
-                      onLoadingComplete={handleLoadingImageComplete}
+                      priority
+                      onLoad={e => handleLoadingImageComplete(e.target as HTMLImageElement)}
                     />
                     <span>Accessories</span>
                   </Link>
@@ -86,7 +88,8 @@ const Categories = () => {
                       className='transition-opacity opacity-0 duration'
                       src={imgCategoriesShoes}
                       alt="Shoes"
-                      onLoadingComplete={handleLoadingImageComplete}
+                      priority
+                      onLoad={e => handleLoadingImageComplete(e.target as HTMLImageElement)}
                     />
                     <span>Shoes</span>
                   </Link>
@@ -99,7 +102,8 @@ const Categories = () => {
                       className='transition-opacity opacity-0 duration'
                       src={imgCategoriesBags}
                       alt="Bags"
-                      onLoadingComplete={handleLoadingImageComplete}
+                      priority
+                      onLoad={e => handleLoadingImageComplete(e.target as HTMLImageElement)}
                     />
                     <span>Bags</span>
                   </Link>
