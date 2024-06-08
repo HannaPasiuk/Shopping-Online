@@ -1,7 +1,6 @@
 'use client'
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react"
-import { useStore } from "effector-react"
 import { $cataogmenuIsOpen, closeCataogMenu } from "../../../context/modals"
 import { useMenuAnimation } from "../../../hooks/useMenuAnimation"
 import Header from "./Header"
@@ -11,11 +10,12 @@ import CatalogMenuButton from "./CatalogMenuButton";
 import CatalogMenuList from "./CatalogMenuList";
 import Accordion from "../Accordion/Accordion";
 import Link from "next/link";
+import { useUnit } from "effector-react";
 
 
 
 const CatalogMenu = () => {
-  const catalogMenuIsOpen = useStore($cataogmenuIsOpen)
+  const catalogMenuIsOpen = useUnit($cataogmenuIsOpen)
   const [showClothList, setShowClothList] = useState(false);
   const [showAccessoriesList, setShowAccessoriesList] = useState(false);
   const [showSouvenirsList, setShowSouvenirsList] = useState(false);

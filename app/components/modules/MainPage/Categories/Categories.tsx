@@ -45,7 +45,7 @@ const Categories = () => {
   ]
 
   return (
-    <section className={styles.categories}>
+    <section className={`container ${styles.categories}`}>
       <div className={styles.categories__conteiner}>
         <h2 className={styles.categories__title}>Categories</h2>
         <div className={styles.categories__inner}>

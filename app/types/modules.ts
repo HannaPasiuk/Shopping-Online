@@ -1,3 +1,5 @@
+import { IProduct } from "./common";
+
 export interface IAccordionProps {
   children: React.ReactNode;
   title: string | JSX.Element;
@@ -19,3 +21,9 @@ export interface ICatalogMMenuButtonProps {
   isActive: boolean;
   handel: VoidFunction;
 }
+
+export interface IProductListItemProps{
+  item: IProduct
+  title?: string
+}
+

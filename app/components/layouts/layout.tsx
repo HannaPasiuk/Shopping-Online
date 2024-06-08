@@ -34,6 +34,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       ${searchModal ? 'overlay-active' : ''}`}
         onClick={handleCloseSearchModal} />
 
+
+
         <Footer/>
     </>
   );

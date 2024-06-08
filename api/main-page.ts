@@ -2,8 +2,8 @@ import { createEffect } from "effector";
 import api from './apiInstants';
 
 
-export const getNewProducts = createEffect(
+export const getHitsProductsFx = createEffect(
   async() => {
-  const { data } = await api.get('/goods/hits')
+  const { data } = await api.get('/api/goods/hits')
   return data
 })

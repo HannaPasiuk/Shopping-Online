@@ -1,7 +1,7 @@
-'use client'
-import { getNewProducts } from "@/api/main-page";
-import { Effect, createDomain } from "effector";
-import {  createGate } from "effector-react";
+"use client";
+import { Effect, createDomain, sample } from "effector";
+import { Gate, createGate } from "effector-react";
+import { getHitsProductsFx } from "../../api/main-page";
 
 const goods = createDomain();
 
@@ -15,9 +15,16 @@ const goodsStoreInstanse = (effect: Effect<void, [], Error>) =>
       console.log(error.message);
     });
 
-   
- 
-  export const $hitsProducts = goodsStoreInstanse(getNewProducts);
+const goodsSampleInstance = (
+  effect: Effect<void, [], Error>,
+  gate: Gate<unknown>
+) => 
+  sample({
+    clock: gate.open,
+    target: effect,
+  })
 
+export const $hitsProducts = goodsStoreInstanse(getHitsProductsFx);
 
+goodsSampleInstance(getHitsProductsFx, MainPageGate)
 
