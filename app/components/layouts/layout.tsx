@@ -9,26 +9,11 @@ import { useUnit } from "effector-react";
 import { $searchModal } from "@/app/context/modals";
 import { handleCloseSearchModal } from "@/app/lib/utils/common";
 import Footer from "../modules/Footer/Footer";
-import { $openAuthPopup } from "@/app/context/auth";
-import AuthPopup from "../modules/AuthPopup/Authpopup";
-import { MutableRefObject, useRef } from "react";
-import { handleCloseAuthPopup } from "@/app/lib/utils/common";
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const isMedia800 = useMediaQuery(800);
   const searchModal = useUnit($searchModal)
-  const openAuthPopup = useUnit($openAuthPopup)
-  const authWrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
-
-  const handleCloseAuthPopupByTarget = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    const target = e.target as Element
-    if (target === authWrapperRef.current) {
-      handleCloseAuthPopup()
-    }
-  }
 
   return (
     <>
@@ -36,20 +21,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {children}
       {isMedia800 && <MobileNavbar />}
       <AnimatePresence>
-      {openAuthPopup && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            className='auth-popup-wrapper'
-            onClick={handleCloseAuthPopupByTarget}
-            ref={authWrapperRef}
-          >
-            <AuthPopup/>
-          </motion.div>
-        )}
-
         {searchModal && (
           <motion.div
             initial={{ opacity: 0, zIndex: 102 }}
