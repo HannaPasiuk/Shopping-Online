@@ -1,10 +1,11 @@
 'use client'
 
-import imgCategoriesAccessories from '@/public/img/categories-accwssories.jpeg'
-import imgCategoriesClothes from '@/public/img/categories-cloth.jpg'
-import imgCategoriesBags from '@/public/img/categories-bags.jpeg'
-import imgCategoriesShoes from '@/public/img/categories-shoes.jpeg'
+import imgCategoriesAccessories from '../../../../../public/img/categories-accwssories.jpeg'
+import imgCategoriesClothes from '../../../../../public/img/categories-cloth.jpg'
+import imgCategoriesBags from '../../../../../public/img/categories-bags.jpeg'
+import imgCategoriesShoes from '../../../../../public/img/categories-shoes.jpeg'
 import styles from '../../../../../styles/main-page/index.module.scss'
+import { useMediaQuery } from '@/app/hooks/useMeidaQuery'
 import useImagePreloader from '@/app/hooks/useImagePreloader'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ import Image from 'next/image'
 
 
 const Categories = () => {
-
+  const isMedia490 = useMediaQuery(490);
 
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader()
   const imgSpinnerClass = imgSpinner ? styles.img_liading : ''
