@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import PagesLatout from "./components/layouts/PagesLayout"
 import "./glonalStyles/normalize.css";
 import "./glonalStyles/globals.css";
 import "./glonalStyles/header.css";
@@ -8,7 +9,8 @@ import './glonalStyles/mobile-navbar.css'
 import './glonalStyles/catalog-menu.css'
 import './glonalStyles/search-modal.css'
 import './glonalStyles/footer.css'
-import Layout from "./components/layouts/layout";
+import './glonalStyles/auth-popup.css'
+
 
 
 
@@ -29,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <PagesLatout>{children}</PagesLatout>
         </body>
     </html>
   );

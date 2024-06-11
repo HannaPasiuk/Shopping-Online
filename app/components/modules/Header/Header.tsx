@@ -1,6 +1,6 @@
 'use client'
 import { openMenu, openSearchMenu } from "@/app/context/modals";
-import { addOverFlowHiddenToBody } from "@/app/lib/utils/common";
+import { addOverFlowHiddenToBody, handleOpenAuthPopup } from "@/app/lib/utils/common";
 import Link from "next/link";
 import Logo from "../../elements/Logo/Logo";
 import Menu from "./Menu";
@@ -24,7 +24,7 @@ const Header = () => {
     <header className="header">
       <div className="conteiner header__conteiner">
         <button className="btn-reset header__burger" onClick={handleOpenMenu}>
-          Menu
+          <span className="header__burger__line">Menu</span>
         </button>
         <Menu />
         <div className="header__logo">
@@ -48,8 +48,13 @@ const Header = () => {
             <Link href='card' className="header__links__item__btn header__links__item__btn--card"></Link>
           </li>
 
-          <li className="header__links__item">
-            <Link href='profile' className="header__links__item__btn header__links__item__btn--profile"></Link>
+          <li className="header__links__item header__links__item--profile">
+            <button type="button"
+             className=" btn-reset header__links__item__btn header__links__item__btn--profile"
+             onClick={handleOpenAuthPopup}
+             >
+
+            </button>
           </li>
         </ul>
 

@@ -1,14 +1,14 @@
 "use client";
 import { Effect, createDomain, sample } from "effector";
 import { Gate, createGate } from "effector-react";
-import { getHitsProductsFx } from "../../api/main-page";
+import { getHitsProductsFx } from "@/api/main-page";
 
 const goods = createDomain();
 
 export const MainPageGate = createGate();
 
 const goodsStoreInstanse = (effect: Effect<void, [], Error>) =>
-  goods
+     goods
     .createStore([])
     .on(effect.done, (_, { result }) => result)
     .on(effect.fail, (_, { error }) => {
