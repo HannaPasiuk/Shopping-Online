@@ -1,9 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: Rostelecom Basis;
   font-weight: 400;
+  background-color: #1D2533;
   color: #E8E9EA;
   min-height: 100vh;
-  background-color: #1D2533;
   display: flex;
   flex-direction: column;
 }
@@ -25,8 +29,7 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: #70F;
 }
 
-
-.conteiner {
+.container {
   max-width: 1535px;
   margin: 0 auto;
   padding: 0 15px;
@@ -35,9 +38,13 @@ body::-webkit-scrollbar-thumb:hover {
 .btn-reset {
   margin: 0;
   padding: 0;
-  color: pointer;
+  cursor: pointer;
   background-color: transparent;
   border: none;
+}
+
+.slick-slide {
+  margin: 0 9px;
 }
 
 .list-reset {
@@ -46,13 +53,32 @@ body::-webkit-scrollbar-thumb:hover {
   list-style-type: none;
 }
 
-.overflow-hidden {
-  overflow-y: hidden;
-  padding-right: 8px;
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
-.header__search-overlay {
-  background-color: #16181b;
+.opacity-0 {
+  opacity: 0;
+}
+
+.duration {
+  transition-duration: 2s;
+}
+
+.site-title {
+  margin: 0;
+  margin-bottom: 40px;
+  color: #E8E9EA;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.header__search-overlay,
+.auth-overlay,
+.share-overlay {
+  background: #16181b;
   height: 100%;
   left: 0;
   opacity: 0;
@@ -63,20 +89,22 @@ body::-webkit-scrollbar-thumb:hover {
   z-index: -1;
 }
 
+.header__search-overlay.overlay-active,
+.auth-overlay.overlay-active,
 .share-overlay.overlay-active {
   opacity: 0.6;
   visibility: visible;
-  z-index: 2;
 }
 
-.transition-opacity {
-  transition-property: opacity;
-  transition-timing-function:  cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+.header__search-overlay.overlay-active {
+  z-index: 101;
 }
-.opacity-0{
-  opacity: 0;
+
+.share-overlay.overlay-active {
+  z-index: 101;
 }
-.duration {
-  transition-duration: 2s;
+
+
+.auth-overlay.overlay-active {
+  z-index: 100;
 }

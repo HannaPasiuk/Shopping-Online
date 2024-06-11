@@ -1,5 +1,5 @@
 import { createEffect } from "effector";
-import api from './apiInstants';
+import api from '../../../../api/apiInstants';
 
 
 export const getHitsProductsFx = createEffect(
