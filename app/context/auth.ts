@@ -13,6 +13,8 @@ export const handleSignUp = auth.createEvent<ISignUpFx>();
 export const handleSignIn = auth.createEvent<ISignUpFx>();
 
 
+
+
 export const $openAuthPopup = auth
   .createStore<boolean>(false)
   .on(openAuthPopup, () => true)

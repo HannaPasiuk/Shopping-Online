@@ -7,14 +7,15 @@ import AuthPopupClose from './AuthPopupClose'
 import EmailInput from './EmailInput'
 import PasswordInput from './PusswordInput'
 import AuthPopupSocials from './AuthPopupSocials'
-import { signUpFx } from '@/api/auth'
+import { signInFx } from '@/api/auth'
 import { handleSignIn } from '@/app/context/auth'
+
 
 const AuthPopupLogin = ({ toggleAuth, isSideActive }: IAuthSideProps ) => {
 
   const { spinner, register, errors, handleSubmit, handleSignupWithOAuth } =
     useAuthForm(
-      signUpFx.pending,
+      signInFx.pending,
       isSideActive,
       handleSignIn,)
 

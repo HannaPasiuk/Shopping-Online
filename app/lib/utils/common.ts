@@ -1,5 +1,5 @@
 
-import { openAuthPopup } from "@/app/context/auth";
+import { closeAuthPopup, openAuthPopup } from "@/app/context/auth";
 import { closeSearchMenu } from "@/app/context/modals";
 
 
@@ -30,3 +30,9 @@ export const handleOpenAuthPopup = () => {
   addOverFlowHiddenToBody();
   openAuthPopup();
 };
+
+
+export const handleCloseAuthPopup = () => {
+  removeOverFlowHiddenFromBody();
+  closeAuthPopup();
+}

@@ -1,11 +1,10 @@
-
-import { $hitsProducts } from "@/app/context/goots"
+import { motion } from "framer-motion"
 import { useUnit } from "effector-react"
+import { $hitsProducts } from "@/app/context/goots"
+import { getHitsProductsFx } from "@/api/main-page"
 import { IProduct } from "@/app/types/common"
 import AllLink from "@/app/components/elements/AllLink/AllLink"
 import Loading from "@/app/components/elements/Loading/Loading"
-import { motion } from "framer-motion"
-import { getHitsProductsFx } from "@/app/api/goods/hits/main-page"
 import ProductListItem from "@/app/components/modules/ProductListItem/ProductListItem"
 import { title } from "process"
 import styles from '@/styles/main-page/index.module.scss'

@@ -12,7 +12,7 @@ import Footer from "../modules/Footer/Footer";
 import { $openAuthPopup } from "@/app/context/auth";
 import AuthPopup from "../modules/AuthPopup/Authpopup";
 import { MutableRefObject, useRef } from "react";
-import { handleCloseAuthPopup } from "@/app/lib/utils/api-routes";
+import { handleCloseAuthPopup } from "@/app/lib/utils/common";
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -46,7 +46,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             onClick={handleCloseAuthPopupByTarget}
             ref={authWrapperRef}
           >
-            <AuthPopup />
+            <AuthPopup/>
           </motion.div>
         )}
 
