@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import clientPromise from '@/app/lib/mongodb'
+import clientPromise from '@/lib/mongodb'
 import {
   getAuthRouteData,
   findUserByEmail,
   parseJwt,
-} from '@/app/lib/utils/api-routes'
-import { IUser } from '@/app/types/user'
+} from '@/lib/utils/api-routes'
+import { IUser } from '@/types/user'
 
 export async function GET(req: Request) {
   try {

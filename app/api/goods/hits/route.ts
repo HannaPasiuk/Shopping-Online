@@ -1,5 +1,5 @@
-import clientPromise from "../../../lib/mongodb";
-import { getDbAndReqBody, getNewHitsProducts} from "../../../lib/utils/api-routes";
+import clientPromise from "../../../../lib/mongodb";
+import { getDbAndReqBody, getNewHitsProducts} from "../../../../lib/utils/api-routes";
 import { NextResponse } from "next/server";
 
 

@@ -1,4 +1,4 @@
-import MainPage from "./components/templetas/MainPage/MainPage";
+import MainPage from "../components/templetas/MainPage/MainPage";
 
 
 export default function Home() {

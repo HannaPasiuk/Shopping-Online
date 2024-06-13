@@ -1,11 +1,13 @@
 
 import { NextResponse } from 'next/server'
-import clientPromise from '@/app/lib/mongodb'
+import clientPromise from '@/lib/mongodb'
 import {
   createUserAndGenerateTokens,
   findUserByEmail,
   getDbAndReqBody,
-} from '@/app/lib/utils/api-routes'
+} from '@/lib/utils/api-routes'
+
+
 
 export async function POST(req: Request) {
   try {
@@ -25,4 +27,6 @@ export async function POST(req: Request) {
     throw new Error((error as Error).message)
   }
 }
+
+
 

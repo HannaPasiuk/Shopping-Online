@@ -1,12 +1,12 @@
 
 import bcrypt from 'bcryptjs'
 import { NextResponse } from 'next/server'
-import clientPromise from '@/app/lib/mongodb'
+import clientPromise from '@/lib/mongodb'
 import {
   findUserByEmail,
   generateTokens,
   getDbAndReqBody,
-} from '@/app/lib/utils/api-routes'
+} from '@/lib/utils/api-routes'
 
 
 

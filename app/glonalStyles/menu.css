@@ -162,7 +162,7 @@
 .nav-menu__accordion__item__title {
   position: relative;
   color: #777C85;
-  font-size: 16px;
+  font-size: 21px;
   font-weight: 400;
   transition: .2s ease-in-out color;
 }
@@ -190,7 +190,7 @@
 
 .nav-menu__accordion__item__list__item__link {
   color: #E8E9EA;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   transition: .2s ease-in-out color;
   text-decoration: none;
