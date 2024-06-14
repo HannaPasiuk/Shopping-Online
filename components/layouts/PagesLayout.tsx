@@ -1,6 +1,6 @@
 'use client'
 import { Toaster } from "react-hot-toast"
-import { $openAuthPopup } from "@/api/auth"
+import { $openAuthPopup } from "@/context/auth"
 import { useUnit } from "effector-react"
 import { EarthoOneProvider } from '@eartho/one-client-react'
 import { handleCloseAuthPopup } from "@/lib/utils/common"
@@ -18,17 +18,24 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-    {isClient && (
-      <EarthoOneProvider clientId={`${process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID}`} domain=''>
-  
-        <Layout>{children}</Layout>
-        <div className={`auth-overlay ${openAuthPopup ? 'overlay-active' : ''}`}
-          onClick={handleCloseAuthPopup} />
-        <Toaster position="top-center" reverseOrder={false} />
- 
-    </EarthoOneProvider>)} 
+      {isClient ? (
+        <EarthoOneProvider clientId={`${process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID}`} domain=''>
+
+          <Layout>{children}</Layout>
+          <div className={`auth-overlay ${openAuthPopup ? 'overlay-active' : ''}`}
+            onClick={handleCloseAuthPopup} />
+          <Toaster position="top-center" reverseOrder={false} />
+
+        </EarthoOneProvider>)
+        : (
+          <html lang="en">
+            <body>
+              <></>
+            </body>
+          </html>
+        )}
     </>
-  
+
   )
 }
 

@@ -22,9 +22,9 @@ export const useAuthForm = (
     if (isSideActive) {
       if (isConnected) {
         event({
-          name: user?.user.displayName,
-          email: user?.user.email,
-          password: user?.user.uid,
+          name: user?.displayName as string,
+          email: user?.email as string,
+          password: user?.uid as string,
           isOAuth: true,
         });
       }

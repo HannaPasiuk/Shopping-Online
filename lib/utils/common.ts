@@ -1,6 +1,7 @@
 
-import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/api/auth";
+import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/context/auth";
 import { closeSearchMenu } from "@/context/modals";
+import { loginCheck } from "@/context/user";
 import { ICartItem } from "@/types/cart";
 
 
@@ -68,6 +69,16 @@ export const isUserAuth = () => {
 
   return true
 }
+
+export const triggerLoginCheck = () => {
+    if(!isUserAuth()){
+      return
+    }
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    loginCheck({ jwt: auth.accessToken })
+}
+
+
 
 export const isItemLInist = (array: ICartItem[], productId: string | number) => 
   array.some((item) => item.productId === productId)

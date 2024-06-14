@@ -1,8 +1,9 @@
 import { ISignUpFx } from "@/types/authPopup";
+import api from "@/api/apiInstants";
+import { onAuthSuccess } from "@/lib/utils/auth";
 import { createDomain, createEffect, sample } from "effector";
 import toast from "react-hot-toast";
-import { onAuthSuccess } from "@/lib/utils/auth";
-import api from "@/api/apiInstants";
+import { handleJWTError } from "@/lib/utils/errors";
 
 
 
@@ -34,6 +35,8 @@ export const oauthFx = createEffect(
     }
   }
 );
+
+
 
 export const signInFx = createEffect(
   async ({ email, password, isOAuth }: ISignUpFx) => {
@@ -92,17 +95,8 @@ export const signUpFx = createEffect(
 
 
 
-  export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
-    const { data } = await api.get('/api/users/login-check', {
-      headers: { Authorization: `Bearer ${jwt}` },
-    })
-  
-    return data
-  })
-
-
-
-
+ 
+ 
 export const $openAuthPopup = auth
   .createStore<boolean>(false)
   .on(openAuthPopup, () => true)

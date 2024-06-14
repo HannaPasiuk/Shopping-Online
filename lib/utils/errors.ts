@@ -1,8 +1,9 @@
 /* eslint-disable indent */
 import { JWTError } from "@/constants/jwt";
-import { refreshTokenFx, loginCheckFx } from "@/api/auth";
+import { refreshTokenFx, loginCheckFx } from "@/context/user";
 import { addProductToCartFx, getCartItemsFx } from "@/context/cart";
 import { IAddProductToCartFx } from "@/types/cart";
+
 
 export const handleJWTError = async (
   errorName: string,

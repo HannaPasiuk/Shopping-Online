@@ -4,14 +4,29 @@ import styles from '@/styles/ProductListItem/index.module.scss'
 import Link from "next/link"
 import ProductItemActionBtn from "@/components/elements/ProductItemActionBtn/ProductItemActionBtn"
 import { useMediaQuery } from "@/hooks/useMeidaQuery"
+import { useCartAction } from "@/hooks/useCartAction"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { addItemToCart } from "@/lib/utils/cart"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+
 
 
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
+  const { addToCartSpinner,
+    isPoductInCart,
+    setAddToCartSpinner }
+    = useCartAction()
 
+ const addToCart = () => {
+    if (isPoductInCart) {
+      return
+    }
+    setAddToCartSpinner(true)
+    addItemToCart(item, setAddToCartSpinner, 1)
+  }
 
-  
   return (
     <li className={styles.list__item}>
 
@@ -60,8 +75,13 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
         </span>
       </div>
 
-      <button type="button" className={`btn-reset ${styles.list__item__cart}`}>
-        Add to cart
+      <button className={`btn-reset ${styles.list__item__cart} 
+      ${isPoductInCart ? styles.list__item__cart_added : ''}`}
+      onClick={addToCart}
+      disabled={addToCartSpinner}
+      >
+        {!isPoductInCart && addToCartSpinner && 'Added'}
+        {!isPoductInCart && !addToCartSpinner && 'Add to cart'}     
       </button>
 
 

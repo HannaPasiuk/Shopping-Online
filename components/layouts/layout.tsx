@@ -9,7 +9,7 @@ import { useUnit } from "effector-react";
 import { $searchModal } from "@/context/modals";
 import { handleCloseSearchModal } from "@/lib/utils/common";
 import Footer from "../modules/Footer/Footer";
-import { $openAuthPopup } from "@/api/auth";
+import { $openAuthPopup } from "@/context/auth";
 import AuthPopup from "../modules/AuthPopup/Authpopup";
 import { MutableRefObject, useRef } from "react";
 import { handleCloseAuthPopup } from "@/lib/utils/common";

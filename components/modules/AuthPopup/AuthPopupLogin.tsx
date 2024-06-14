@@ -7,7 +7,7 @@ import AuthPopupClose from './AuthPopupClose'
 import EmailInput from './EmailInput'
 import PasswordInput from './PusswordInput'
 import AuthPopupSocials from './AuthPopupSocials'
-import { signInFx, handleSignIn } from '@/api/auth'
+import { signInFx, handleSignIn } from '@/context/auth'
 
 
 

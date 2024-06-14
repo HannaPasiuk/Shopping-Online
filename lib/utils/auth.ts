@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast'
-import { setIsAuth } from "@/api/auth"
+import { setIsAuth } from "@/context/auth"
 import { handleCloseAuthPopup } from "@/lib/utils/common"
 
 

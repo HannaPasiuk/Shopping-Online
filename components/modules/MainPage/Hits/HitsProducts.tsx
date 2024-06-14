@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useUnit } from "effector-react"
-import { $hitsProducts } from "@/api/hits"
+import { $hitsProducts } from "@/context/hits"
 import { getHitsProductsFx } from "@/app/api/goods/hits/main-page"
 import { IProduct } from "@/types/common"
 import AllLink from "@/components/elements/AllLink/AllLink"

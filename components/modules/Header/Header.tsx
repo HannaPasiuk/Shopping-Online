@@ -1,14 +1,23 @@
 'use client'
 import { openMenu, openSearchMenu } from "@/context/modals";
-import { addOverFlowHiddenToBody, handleOpenAuthPopup } from "@/lib/utils/common";
+import { addOverFlowHiddenToBody, handleOpenAuthPopup, triggerLoginCheck } from "@/lib/utils/common";
 import Link from "next/link";
 import Logo from "@/components/elements/Logo/Logo";
 import Menu from "./Menu";
+import { useEffect } from "react";
+import { useCartByAuth } from "@/hooks/useCartByAuth";
+
+
+
 
 
 
 
 const Header = () => {
+   
+  const currentCartByAuth = useCartByAuth();
+  console.log(currentCartByAuth);
+  
 
   const handleOpenMenu = () => {
     addOverFlowHiddenToBody();
@@ -19,6 +28,10 @@ const Header = () => {
     openSearchMenu();
     addOverFlowHiddenToBody();
   }
+
+  useEffect(() => {
+  triggerLoginCheck()
+  }, [])
 
   return (
     <header className="header">
@@ -49,12 +62,12 @@ const Header = () => {
           </li>
 
           <li className="header__links__item header__links__item--profile">
-            <button type="button"
+          
+           <button type="button"
              className=" btn-reset header__links__item__btn header__links__item__btn--profile"
              onClick={handleOpenAuthPopup}
-             >
-
-            </button>
+              />
+             
           </li>
         </ul>
 
