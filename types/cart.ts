@@ -19,3 +19,8 @@ export interface IAddProductToCartFx {
   clientId: number | string
   setSpinner: (arg0: boolean) => void
 }
+
+export interface IAddProductsFromLSToCartFx {
+  jwt: string
+  cartItems: ICartItem[]
+}

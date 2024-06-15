@@ -2,7 +2,7 @@ import { $currentProduct } from "@/context/goods";
 import { useUnit } from "effector-react";
 import { useCartByAuth } from "./useCartByAuth";
 import { useState } from "react";
-import { isItemLInist, isUserAuth } from "@/lib/utils/common";
+import { isItemLInList, isUserAuth } from "@/lib/utils/common";
 import { addCartItemToLs } from "@/lib/utils/cart";
 
 export const useCartAction = () => {
@@ -12,7 +12,7 @@ export const useCartAction = () => {
     (item) => item.productId === product?._id
   );
 
-  const isPoductInCart = isItemLInist(currentCartByAuth, product?._id);
+  const isPoductInCart = isItemLInList(currentCartByAuth, product?._id);
   const [addToCartSpinner, setAddToCartSpinner] = useState(false);
 
   const handleAddToCart = (countFromCounter?: number) => {
@@ -30,5 +30,6 @@ export const useCartAction = () => {
     isPoductInCart,
     currentCartByAuth,
     setAddToCartSpinner,
+    handleAddToCart,
   };
 };

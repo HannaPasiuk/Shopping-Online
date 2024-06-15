@@ -1,6 +1,6 @@
 import { IProductListItemProps } from "@/types/modules"
 import Image from 'next/image'
-import styles from '@/styles/ProductListItem/index.module.scss'
+import styles from '@/styles/ProductListItem/index.module.scss'                   
 import Link from "next/link"
 import ProductItemActionBtn from "@/components/elements/ProductItemActionBtn/ProductItemActionBtn"
 import { useMediaQuery } from "@/hooks/useMeidaQuery"
@@ -8,22 +8,22 @@ import { useCartAction } from "@/hooks/useCartAction"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { addItemToCart } from "@/lib/utils/cart"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import { isItemLInList } from "@/lib/utils/common"
 
 
 
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
-  const { addToCartSpinner,
-    isPoductInCart,
-    setAddToCartSpinner }
+  const {
+  addToCartSpinner,
+  setAddToCartSpinner,
+  currentCartByAuth }
     = useCartAction()
 
+const isProductInCart = isItemLInList(currentCartByAuth, item._id)
+
  const addToCart = () => {
-    if (isPoductInCart) {
-      return
-    }
-    setAddToCartSpinner(true)
     addItemToCart(item, setAddToCartSpinner, 1)
   }
 
@@ -75,13 +75,19 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
         </span>
       </div>
 
-      <button className={`btn-reset ${styles.list__item__cart} 
-      ${isPoductInCart ? styles.list__item__cart_added : ''}`}
+      <button 
+         className={`btn-reset ${styles.list__item__cart} ${
+          isProductInCart ? styles.list__item__cart_added : ''
+        }`}
       onClick={addToCart}
-      disabled={addToCartSpinner}
+      disabled={isProductInCart || addToCartSpinner}
+      style={addToCartSpinner ? {minWidth: 125, height: 48} : {}}
       >
-        {!isPoductInCart && addToCartSpinner && 'Added'}
-        {!isPoductInCart && !addToCartSpinner && 'Add to cart'}     
+
+        {addToCartSpinner ? <FontAwesomeIcon icon={faSpinner} spin /> : 
+        isProductInCart ? 'Added' : 'Add to cart'
+      
+      }
       </button>
 
 

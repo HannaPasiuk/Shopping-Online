@@ -6,6 +6,9 @@ import Logo from "@/components/elements/Logo/Logo";
 import Menu from "./Menu";
 import { useEffect } from "react";
 import { useCartByAuth } from "@/hooks/useCartByAuth";
+import { addProductsFromLSToCart, setCartFromLS } from "@/context/cart";
+import { $isAuth } from "@/context/auth";
+import { useUnit } from "effector-react";
 
 
 
@@ -17,7 +20,7 @@ const Header = () => {
    
   const currentCartByAuth = useCartByAuth();
   console.log(currentCartByAuth);
-  
+  const isAuth = useUnit($isAuth)
 
   const handleOpenMenu = () => {
     addOverFlowHiddenToBody();
@@ -30,8 +33,28 @@ const Header = () => {
   }
 
   useEffect(() => {
-  triggerLoginCheck()
+    const cart = JSON.parse(localStorage.getItem('cart') as string)
+    triggerLoginCheck()
+
+    if(cart){
+      setCartFromLS(cart)
+    }
+
   }, [])
+
+  useEffect(() => {
+    if(isAuth){
+      const auth = JSON.parse(localStorage.getItem('auth') as string)
+      const cartFromLs = JSON.parse(localStorage.getItem('cart') as string)
+
+      if(cartFromLs && Array.isArray(cartFromLs)){
+        addProductsFromLSToCart({
+          jwt: auth.accessToken,
+          cartItems: cartFromLs
+        })
+      }
+    }
+  }, [isAuth])
 
   return (
     <header className="header">

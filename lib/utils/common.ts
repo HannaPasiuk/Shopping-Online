@@ -80,5 +80,5 @@ export const triggerLoginCheck = () => {
 
 
 
-export const isItemLInist = (array: ICartItem[], productId: string | number) => 
+export const isItemLInList = (array: ICartItem[], productId: string | number) => 
   array.some((item) => item.productId === productId)
