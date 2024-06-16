@@ -14,7 +14,8 @@
 }
 
 .header{
-  position: relative;
+  position: fixed;
+  width: 100%;
   z-index: 3;
   background-color: #1D2533;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5), 0px 0px 8px 0px rgba(0,0,0,0.5);
@@ -75,10 +76,7 @@ transform: translateX(-65%);
   mask: url('/img/cart.svg') no-repeat 50% 50%;
 }
 
-.header__links__item__btn--profile::before{
-  -webkit-mask: url('/img/profile.svg') no-repeat 50% 50%;
-  mask: url('/img/profile.svg') no-repeat 50% 50%;
-}
+
 
 .header__links__item__btn:hover::before{
   transition: background-color 0.2s ease-in-out;

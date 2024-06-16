@@ -1,8 +1,11 @@
+import { StoreWritable } from "effector";
+
 export interface IProduct {
   _id: number;
   name: string;
   type: string;
   category: string;
+  count: number;
   price: string;
   images: string;
   description: string;
@@ -15,3 +18,4 @@ export interface IBaseEffectProps {
   id: string | number
   setSpinner: (arg0: boolean) => void
 }
+export type UseGoodsByAuth<T> = StoreWritable<T>

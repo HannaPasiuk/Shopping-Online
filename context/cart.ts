@@ -1,5 +1,5 @@
 
-import { IAddProductToCartFx, IAddProductsFromLSToCartFx, ICartItem } from "@/types/cart";
+import { IAddProductToCartFx, IAddProductsFromLSToCartFx, ICartItem, IUpdateCartItemCountFx } from "@/types/cart";
 import { createDomain, createEffect, sample } from "effector";
 import api from "@/api/apiInstants";
 import { handleJWTError } from "@/lib/utils/errors";
@@ -12,6 +12,7 @@ export const loadCartItems = cart.createEvent<{ jwt: string }>()
 export const setCartFromLS = cart.createEvent<ICartItem[]>()
 export const addProductToCart = cart.createEvent<IAddProductToCartFx>()
 export const addProductsFromLSToCart = cart.createEvent<IAddProductsFromLSToCartFx>()
+export const updateCartItemCount = cart.createEvent<IUpdateCartItemCountFx>()
 
 
 
@@ -76,7 +77,7 @@ export const addProductToCartFx = createEffect(
         return newData
       }
 
-      toast.success('Product added to cart')
+      toast.success('Added')
       return data
     } catch (error) {
       toast.error((error as Error).message)
@@ -121,15 +122,20 @@ export const addProductsFromLSToCartFx = createEffect(
 
 
 
-export const $cart = cart.createStore<ICartItem[]>([])
-  .on(addProductsFromLSToCartFx.done, (_, result) => result.params.cartItems)
-  .on(loadCartItemsFx.done, (cart, { result }) => {
-    [...new Map(
-      [...cart, result.newCartItem].map((item) => [item.productId, item]),
-    )]
-    }
+export const $cart = cart
+  .createStore<ICartItem[]>([])
+  .on(getCartItemsFx.done, (_, { result }) => result)
+  .on(addProductsFromLSToCartFx.done, (_, { result }) => result.items)
+  .on(addProductToCartFx.done, (cart, { result }) => [
+    ...new Map(
+      [...cart, result.newCartItem].map((item) => [item.clientId, item])
+    ).values(),
+  ])
+  .on(updateCartItemCount, (cart, { id, count }) =>
+    cart.map((item) =>
+      item._id === id ? { ...item, count } : item
+    )
   )
-
   
 export const $cartFromLs = cart
 .createStore<ICartItem[]>([])
@@ -147,4 +153,10 @@ sample({
   source: $cart,
   fn: (_, data) => data,
   target: addProductsFromLSToCartFx,
+})
+sample({
+  clock: updateCartItemCount,
+  source: $cart,
+  fn: (_, data) => data,
+  target: updateCartItemCount,
 })

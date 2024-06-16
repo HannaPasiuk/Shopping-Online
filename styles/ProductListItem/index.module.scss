@@ -105,8 +105,10 @@
       transition: background-color .2s ease-in-out, opacity .2s ease-in-out, visibility .2s ease-in-out;
       
         &_added {
-          background-color:  #8d7db5;
+          background-color:  #848484;
         }
+      
+      
       
         @media (max-width: 800px) {
           opacity: 1;
@@ -125,6 +127,8 @@
       &:disabled {
         opacity: 0.5;
         pointer-events: none;
+        cursor: not-allowed;
+        background-color: #333A47;
       }
     }
 

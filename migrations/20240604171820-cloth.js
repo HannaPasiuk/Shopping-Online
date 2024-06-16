@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 // @typescript-eslint/no-var-requires
 const { faker } = require('@faker-js/faker')
+const { count } = require('console')
 
 
 module.exports = {

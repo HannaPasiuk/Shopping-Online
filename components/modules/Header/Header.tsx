@@ -9,6 +9,11 @@ import { useCartByAuth } from "@/hooks/useCartByAuth";
 import { addProductsFromLSToCart, setCartFromLS } from "@/context/cart";
 import { $isAuth } from "@/context/auth";
 import { useUnit } from "effector-react";
+import { loginCheckFx } from "@/context/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import ProductCountByCart from "../ProductListItem/ProductCountByCart";
+import styles from '@/styles/product-cart-indicator/index.module.scss'
 
 
 
@@ -17,10 +22,11 @@ import { useUnit } from "effector-react";
 
 
 const Header = () => {
-   
-  const currentCartByAuth = useCartByAuth();
+    const isAuth = useUnit($isAuth)
+    const loginCheckSpinner = useUnit(loginCheckFx.pending)
+    const currentCartByAuth = useCartByAuth();
   console.log(currentCartByAuth);
-  const isAuth = useUnit($isAuth)
+ 
 
   const handleOpenMenu = () => {
     addOverFlowHiddenToBody();
@@ -82,15 +88,26 @@ const Header = () => {
 
           <li className="header__links__item">
             <Link href='card' className="header__links__item__btn header__links__item__btn--card"></Link>
+           {currentCartByAuth.length > 0 ? 
+           <span className={styles.count}>
+              <ProductCountByCart products={currentCartByAuth}/>
+              </span> : ''
+              } 
+           
           </li>
 
           <li className="header__links__item header__links__item--profile">
-          
-           <button type="button"
-             className=" btn-reset header__links__item__btn header__links__item__btn--profile"
-             onClick={handleOpenAuthPopup}
+            {loginCheckSpinner ? (
+              <FontAwesomeIcon icon={faSpinner} spin color='#fff' />
+            ) : (
+              <button type="button"
+                className=" btn-reset header__links__item__btn header__links__item__btn--profile"
+                style={isAuth ? { WebkitMask: 'url(/img/profile-auth.svg) no-repeat 50% 50%', mask: 'url(/img/profile-auth.svg) no-repeat 50% 50%' }
+                  : { WebkitMask: 'url(/img/profile.svg) no-repeat 50% 50%', mask: 'url(/img/profile.svg) no-repeat 50% 50%' }
+                }
+                onClick={handleOpenAuthPopup}
               />
-             
+            )}
           </li>
         </ul>
 

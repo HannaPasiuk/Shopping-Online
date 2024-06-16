@@ -1,8 +1,8 @@
 import { addProductToCart, setCartFromLS } from "@/context/cart";
 import { ICartItem } from "@/types/cart";
 import { IProduct } from "@/types/common";
-import toast from "react-hot-toast";
 import { idGenerator, isUserAuth } from "./common";
+
 
 
 
@@ -19,7 +19,7 @@ export const addItemToCart = (
 
   const auth = JSON.parse(localStorage.getItem('auth') as string)
 
-  const clientId = addCartItemToLs(product, count, false)
+  const clientId = addCartItemToLs(product, count)
   addProductToCart({
     jwt: auth.accessToken,
     setSpinner,
@@ -35,7 +35,6 @@ export const addItemToCart = (
 export const addCartItemToLs = (
   product: IProduct,
   count: number,
-  withToast?: boolean
 ) => {
   let cartFromLS: ICartItem[] = JSON.parse(
     localStorage.getItem("cart") as string
@@ -64,25 +63,22 @@ export const addCartItemToLs = (
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCartFromLS(updatedCart as ICartItem[]);
-    toast.success("Added to cart");
     return existingItem.clientId;
   }
-
+  
   const cart = [
     ...cartFromLS,
     {
       clientId,
       productId: product._id,
-      count,
       image: product.images[0],
       name: product.name,
+      count,
       price: product.price,
       category: product.category,
     },
   ];
   localStorage.setItem("cart", JSON.stringify(cart));
   setCartFromLS(cart as ICartItem[]);
-  withToast && toast.success("Added to cart");
-
   return clientId;
 };

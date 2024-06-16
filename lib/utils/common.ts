@@ -82,3 +82,7 @@ export const triggerLoginCheck = () => {
 
 export const isItemLInList = (array: ICartItem[], productId: string | number) => 
   array.some((item) => item.productId === productId)
+
+export const getCartCount = (
+  cartItems: ICartItem[]
+) => cartItems.reduce((acc, item) => acc + item.count, 0)

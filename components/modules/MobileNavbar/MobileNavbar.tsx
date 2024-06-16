@@ -7,8 +7,12 @@ import {
 } from "@/context/modals"
 import { addOverFlowHiddenToBody } from "@/lib/utils/common"
 import CatalogMenu from "../Header/CatalogMenu"
+import ProductCountByCart from "../ProductListItem/ProductCountByCart"
+import { useCartByAuth } from "@/hooks/useCartByAuth"
+import styles from '@/styles/product-cart-indicator/index.module.scss'
 
 const MobileNavbar = () => {
+  const currentCartByAuth = useCartByAuth()
 
 const handleOpenMenu = () => {
   addOverFlowHiddenToBody()
@@ -34,7 +38,13 @@ const handleOpenCatalogMenu = () => {
  <Link href="/favorites" className=" btn-reset mobile-navbar__btn">
   {'Favorites'}
  </Link>
- <Link href="/Card" className=" btn-reset mobile-navbar__btn">
+ <Link href="/Card" className='mobile-navbar__btn'> 
+ {currentCartByAuth.length > 0 ?  <span className={styles.mobileNavbar}>
+    <ProductCountByCart products={currentCartByAuth}/>  
+   </span> : ''
+   }
+
+ 
   {'Card'}
  </Link>
  <button className="btn-reset mobile-navbar__btn"

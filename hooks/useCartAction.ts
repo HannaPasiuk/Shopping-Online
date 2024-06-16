@@ -8,12 +8,11 @@ import { addCartItemToLs } from "@/lib/utils/cart";
 export const useCartAction = () => {
   const product = useUnit($currentProduct);
   const currentCartByAuth = useCartByAuth();
-  const currentCartItem = currentCartByAuth.find(
-    (item) => item.productId === product?._id
-  );
-
+  const currentCartItems  = currentCartByAuth.filter(
+    (item) => item.productId === product._id);
   const isPoductInCart = isItemLInList(currentCartByAuth, product?._id);
   const [addToCartSpinner, setAddToCartSpinner] = useState(false);
+  const [count, setCount] = useState(0);
 
   const handleAddToCart = (countFromCounter?: number) => {
     if (isPoductInCart) {
@@ -26,10 +25,12 @@ export const useCartAction = () => {
   return {
     product,
     addToCartSpinner,
-    currentCartItem,
+    currentCartItems,
     isPoductInCart,
     currentCartByAuth,
     setAddToCartSpinner,
     handleAddToCart,
+    count,
+    setCount,
   };
 };

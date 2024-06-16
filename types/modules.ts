@@ -31,3 +31,14 @@ export interface IProductInfoLabelProps {
   color: string
   className?: string
 }
+
+export interface IEmptyPageContentProps {
+  subtitle: string
+  description: string
+  btnText: string
+  bgClassName: string
+  emptyWord?: string
+  bgWordClassName?: string
+  oopsWord?: string
+  title?: string
+}

@@ -1,30 +1,42 @@
 import { IProductListItemProps } from "@/types/modules"
 import Image from 'next/image'
-import styles from '@/styles/ProductListItem/index.module.scss'                   
+import styles from '@/styles/ProductListItem/index.module.scss'
 import Link from "next/link"
 import ProductItemActionBtn from "@/components/elements/ProductItemActionBtn/ProductItemActionBtn"
 import { useMediaQuery } from "@/hooks/useMeidaQuery"
 import { useCartAction } from "@/hooks/useCartAction"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { addItemToCart } from "@/lib/utils/cart"
-import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { isItemLInList } from "@/lib/utils/common"
+import { useUnit } from "effector-react"
+import { $isAuth } from "@/context/auth"
+import toast from "react-hot-toast"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 
 
 
-const ProductListItem = ({ item, title }: IProductListItemProps) => {
+
+const ProductListItem = ({ item }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
+  const isAuth = useUnit($isAuth)
   const {
-  addToCartSpinner,
-  setAddToCartSpinner,
-  currentCartByAuth }
+    addToCartSpinner,
+    setAddToCartSpinner,
+    currentCartByAuth,
+    count,
+    setCount,
+    handleAddToCart}
     = useCartAction()
 
-const isProductInCart = isItemLInList(currentCartByAuth, item._id)
+  const isProductInCart = isItemLInList(currentCartByAuth, item._id)
 
- const addToCart = () => {
-    addItemToCart(item, setAddToCartSpinner, 1)
+  const addToCart = () => {
+  addItemToCart(item, setAddToCartSpinner, 1)
+  handleAddToCart(count + 1)
+   if(!isAuth){
+    toast.success('Added')
+   }
   }
 
   return (
@@ -45,21 +57,21 @@ const isProductInCart = isItemLInList(currentCartByAuth, item._id)
           text='Comparison'
           iconClass="actions__btn_comparison"
         />
-       
-         {!isMedia800 && (
-             <ProductItemActionBtn
-          text='Quick view'
-          iconClass="actions__btn_quick_view"
-        />
+
+        {!isMedia800 && (
+          <ProductItemActionBtn
+            text='Quick view'
+            iconClass="actions__btn_quick_view"
+          />
         )}
       </div>
 
       <Link href={`/catalog/${item.category}/${item._id}`}
         className={styles.list__item__img}>
         <Image src={item.images}
-         alt={item.name} 
-         width={224}
-         height={275}
+          alt={item.name}
+          width={224}
+          height={275}
         />
       </Link>
 
@@ -71,25 +83,19 @@ const isProductInCart = isItemLInList(currentCartByAuth, item._id)
         </h3>
 
         <span className={styles.list__item__price}>
-          {item.price} 
+          {item.price}
         </span>
       </div>
-
-      <button 
-         className={`btn-reset ${styles.list__item__cart} ${
-          isProductInCart ? styles.list__item__cart_added : ''
-        }`}
-      onClick={addToCart}
-      disabled={isProductInCart || addToCartSpinner}
-      style={addToCartSpinner ? {minWidth: 125, height: 48} : {}}
-      >
-
+       <button
+       type="button"
+        className={`btn-reset ${styles.list__item__cart} ${isProductInCart ? 'styles.list__item__cart_added' : ''
+          }`}
+        onClick={addToCart }
+        disabled={addToCartSpinner || isProductInCart}>
         {addToCartSpinner ? <FontAwesomeIcon icon={faSpinner} spin /> : 
-        isProductInCart ? 'Added' : 'Add to cart'
+        isProductInCart ? 'Add to cart' : 'Add to cart'}
       
-      }
-      </button>
-
+      </button> 
 
     </li>
   )

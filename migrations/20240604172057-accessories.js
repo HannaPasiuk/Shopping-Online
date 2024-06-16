@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 // @typescript-eslint/no-var-requires
 const { faker } = require('@faker-js/faker')
+const { count } = require('console')
 
 
 module.exports = {
@@ -11,7 +12,6 @@ module.exports = {
           category: 'glasses',
           price: '170€',
           name: 'FENDI',
-          isHits: 'true',
           isHits: true,
           description: `These FENDI squared mask pilot shape sunglasses are designed with 
           a matte injected and FF pattern mirror technology lenses. Their fit are wide with high bridge. `,

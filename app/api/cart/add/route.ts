@@ -44,8 +44,9 @@ export async function POST(req: Request) {
       price: productItem.price,
       totalPrice: productItem.price,
       clientId: reqBody.clientId,
-      color: productItem.characteristics.color,
+      color: productItem.color,
       category: productItem.category,
+      type: productItem.type,
     };
 
     const { insertedId } = await db.collection("cart").insertOne(newCartItem);
