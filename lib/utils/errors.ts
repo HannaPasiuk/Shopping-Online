@@ -3,6 +3,7 @@ import { JWTError } from "@/constants/jwt";
 import { refreshTokenFx, loginCheckFx } from "@/context/user";
 import { addProductToCartFx, addProductsFromLSToCartFx, getCartItemsFx } from "@/context/cart";
 import { IAddProductToCartFx, IAddProductsFromLSToCartFx } from "@/types/cart";
+import { addProductToFavoriteFx, getFavoriteItemsFx } from "@/context/favorites";
 
 
 export const handleJWTError = async (
@@ -35,6 +36,15 @@ export const handleJWTError = async (
               ...(payload as IAddProductsFromLSToCartFx),
               jwt: newTokens.accessToken,
             })
+            case 'addProductToFavoriteFx':
+              return addProductToFavoriteFx({
+                ...(payload as Omit<IAddProductToCartFx, 'count'>),
+                jwt: newTokens.accessToken,
+              })
+            case 'getFavoriteItemsFx':
+              return getFavoriteItemsFx({
+                jwt: newTokens.accessToken,
+              })
         case "loginCheckFx":
           await loginCheckFx({
             jwt: newTokens.accessToken,

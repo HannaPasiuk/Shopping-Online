@@ -1,13 +1,14 @@
 import { StoreWritable } from "effector";
 
 export interface IProduct {
-  _id: number;
+  _id: string;
   name: string;
   type: string;
   category: string;
   count: number;
   price: string;
   images: string;
+  color: string;
   description: string;
   isHits: string;
   errorMessage?: string;

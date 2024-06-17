@@ -12,6 +12,9 @@ import { $isAuth } from "@/context/auth"
 import toast from "react-hot-toast"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import { useFavoritesAction } from "@/hooks/useFavoritesAction"
+import { setIsAddToFavorites } from "@/context/favorites"
+
 
 
 
@@ -23,21 +26,25 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
   const {
     addToCartSpinner,
     setAddToCartSpinner,
-    currentCartByAuth,
-    count,
-    setCount,
-    handleAddToCart}
+    currentCartByAuth}
     = useCartAction()
 
   const isProductInCart = isItemLInList(currentCartByAuth, item._id)
 
+  const { addToFavoritesSpinner,
+    isProductInFavorites,
+    handleAddProductToFavorites }
+    = useFavoritesAction(item)
+
+
   const addToCart = () => {
   addItemToCart(item, setAddToCartSpinner, 1)
-  handleAddToCart(count + 1)
+  setIsAddToFavorites(false)
    if(!isAuth){
     toast.success('Added')
    }
   }
+
 
   return (
     <li className={styles.list__item}>
@@ -49,9 +56,17 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
 
 
       <div className={styles.list__item__actions}>
-        <ProductItemActionBtn
+      <ProductItemActionBtn
           text='Favorites'
-          iconClass="actions__btn_favorite"
+          iconClass={`${
+            addToFavoritesSpinner
+              ? 'actions__btn_spinner'
+              : isProductInFavorites
+                ? 'actions__btn_favorite_checked'
+                : 'actions__btn_favorite'
+          }`}
+          spinner={addToFavoritesSpinner}
+          callback={handleAddProductToFavorites}
         />
         <ProductItemActionBtn
           text='Comparison'

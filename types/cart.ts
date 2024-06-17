@@ -1,13 +1,14 @@
 import { IBaseEffectProps } from './common'
 export interface ICartItem {
   _id: string
-  clientId: number
+  clientId: string
   userId: string
-  productId: number
+  productId: string
   image: string
   name: string
-  count:  number
+  count:  number | string
   price: string
+  color: string
   totalPrice: string
   category: string
 }

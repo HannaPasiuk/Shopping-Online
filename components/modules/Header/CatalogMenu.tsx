@@ -17,52 +17,17 @@ import { useUnit } from "effector-react";
 const CatalogMenu = () => {
   const catalogMenuIsOpen = useUnit($cataogmenuIsOpen)
   const [showClothList, setShowClothList] = useState(false);
-  const [showAccessoriesList, setShowAccessoriesList] = useState(false);
-  const [showSouvenirsList, setShowSouvenirsList] = useState(false);
-  const [showOfficeList, setShowOfficeList] = useState(false);
+  const [activeListId, setActiveListId] = useState(0);
   const { itemVariants, sideVariants, popupZIndex } = useMenuAnimation(2, catalogMenuIsOpen)
 
   const isMedia450 = useMediaQuery(450);
 
-  const handleShowClothList = () => {
-    setShowClothList(true)
-    setShowAccessoriesList(false)
-    setShowSouvenirsList(false)
-    setShowOfficeList(false)
-  }
-
-
-  const handleShowAccessoriesList = () => {
-    setShowClothList(false)
-    setShowAccessoriesList(true)
-    setShowSouvenirsList(false)
-    setShowOfficeList(false)
-  }
-
-
-  const handleShowSouvenirsList = () => {
-    setShowClothList(false)
-    setShowAccessoriesList(false)
-    setShowSouvenirsList(true)
-    setShowOfficeList(false)
-  }
-
-
-  const handleShowOfficeList = () => {
-    setShowClothList(false)
-    setShowAccessoriesList(false)
-    setShowSouvenirsList(false)
-    setShowOfficeList(true)
-  }
-
-  const handleCloseMenu = () => {
+ const handleCloseMenu = () => {
     removeOverFlowHiddenFromBody();
-    closeCataogMenu();
-    setShowClothList(false)
-    setShowAccessoriesList(false)
-    setShowSouvenirsList(false)
-    setShowOfficeList(false)
+    closeCataogMenu()
+    setActiveListId(0)
   }
+  const isActiveList = (id: number) => activeListId === id
 
   const items = [
     {
@@ -74,7 +39,7 @@ const CatalogMenu = () => {
         'hoodie',
         'outerwear',
       ],
-      handel: handleShowClothList,
+      handel: ()=> setActiveListId(1),
     },
     {
       name: 'Accessories',
@@ -84,7 +49,7 @@ const CatalogMenu = () => {
         'headdress',
         'umbrella',
       ],
-      handel: handleShowAccessoriesList,
+      handel: ()=> setActiveListId(2),
     },
     {
       name: 'Souvenirs',
@@ -93,7 +58,7 @@ const CatalogMenu = () => {
         'business-souvenirs',
         'promotional-souvenirs',
       ],
-      handel: handleShowSouvenirsList,
+      handel: ()=> setActiveListId(3),
     },
     {
       name: 'Office',
@@ -102,7 +67,7 @@ const CatalogMenu = () => {
         'notebook',
         'pen',
       ],
-      handel: handleShowOfficeList,
+      handel: ()=> setActiveListId(4),
     },
   ]
 
@@ -165,31 +130,31 @@ const CatalogMenu = () => {
                      <>
 
                       {id === 1 && <CatalogMenuButton
-                        {...buttonProps(showClothList)} />}
+                        {...buttonProps(isActiveList(1))} />}
 
                       {id === 2 && <CatalogMenuButton
-                        {...buttonProps(showAccessoriesList)} />}
+                        {...buttonProps(isActiveList(2))} />}
 
                       {id === 3 && <CatalogMenuButton
-                        {...buttonProps(showSouvenirsList)} />}
+                        {...buttonProps(isActiveList(3))} />}
 
                       {id === 4 && <CatalogMenuButton
-                        {...buttonProps(showOfficeList)} />}
+                        {...buttonProps(isActiveList(4))} />}
                         </>)
                  
                     }
 
                   {!isMedia450 && ( <AnimatePresence>
-                      {isCurrentList(showClothList, 1) && (
+                      {isCurrentList(isActiveList(1), 1) && (
                         <CatalogMenuList items={items} />
                       )}
-                      {isCurrentList(showAccessoriesList, 2) && (
+                      {isCurrentList(isActiveList(2), 2) && (
                         <CatalogMenuList items={items} />
                       )}
-                      {isCurrentList(showSouvenirsList, 3) && (
+                      {isCurrentList( isActiveList(3), 3) && (
                         <CatalogMenuList items={items} />
                       )}
-                      {isCurrentList(showOfficeList, 4) && (
+                      {isCurrentList( isActiveList(4), 4) && (
                         <CatalogMenuList items={items} />
                       )}
                     </AnimatePresence>)

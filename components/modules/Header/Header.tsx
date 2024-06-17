@@ -5,8 +5,7 @@ import Link from "next/link";
 import Logo from "@/components/elements/Logo/Logo";
 import Menu from "./Menu";
 import { useEffect } from "react";
-import { useCartByAuth } from "@/hooks/useCartByAuth";
-import { addProductsFromLSToCart, setCartFromLS } from "@/context/cart";
+import { $cart, $cartFromLs, addProductsFromLSToCart, setCartFromLS } from "@/context/cart";
 import { $isAuth } from "@/context/auth";
 import { useUnit } from "effector-react";
 import { loginCheckFx } from "@/context/user";
@@ -14,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ProductCountByCart from "../ProductListItem/ProductCountByCart";
 import styles from '@/styles/product-cart-indicator/index.module.scss'
+import { useGoodsByAuth } from "@/hooks/useGoodsByAuth";
 
 
 
@@ -24,7 +24,7 @@ import styles from '@/styles/product-cart-indicator/index.module.scss'
 const Header = () => {
     const isAuth = useUnit($isAuth)
     const loginCheckSpinner = useUnit(loginCheckFx.pending)
-    const currentCartByAuth = useCartByAuth();
+    const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
   console.log(currentCartByAuth);
  
 

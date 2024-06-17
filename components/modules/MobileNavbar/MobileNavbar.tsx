@@ -8,11 +8,12 @@ import {
 import { addOverFlowHiddenToBody } from "@/lib/utils/common"
 import CatalogMenu from "../Header/CatalogMenu"
 import ProductCountByCart from "../ProductListItem/ProductCountByCart"
-import { useCartByAuth } from "@/hooks/useCartByAuth"
 import styles from '@/styles/product-cart-indicator/index.module.scss'
+import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
+import { $cart, $cartFromLs } from "@/context/cart"
 
 const MobileNavbar = () => {
-  const currentCartByAuth = useCartByAuth()
+  const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
 
 const handleOpenMenu = () => {
   addOverFlowHiddenToBody()

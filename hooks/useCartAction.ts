@@ -1,13 +1,14 @@
 import { $currentProduct } from "@/context/goods";
 import { useUnit } from "effector-react";
-import { useCartByAuth } from "./useCartByAuth";
 import { useState } from "react";
 import { isItemLInList, isUserAuth } from "@/lib/utils/common";
 import { addCartItemToLs } from "@/lib/utils/cart";
+import { useGoodsByAuth } from "./useGoodsByAuth";
+import { $cart, $cartFromLs } from "@/context/cart";
 
 export const useCartAction = () => {
   const product = useUnit($currentProduct);
-  const currentCartByAuth = useCartByAuth();
+  const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
   const currentCartItems  = currentCartByAuth.filter(
     (item) => item.productId === product._id);
   const isPoductInCart = isItemLInList(currentCartByAuth, product?._id);
