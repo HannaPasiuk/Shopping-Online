@@ -3,6 +3,8 @@ import { closeAuthPopup, openAuthPopup, setIsAuth } from "@/context/auth";
 import { closeSearchMenu } from "@/context/modals";
 import { loginCheck } from "@/context/user";
 import { ICartItem } from "@/types/cart";
+import { EventCallable } from "effector";
+import toast from "react-hot-toast";
 
 
 export const removeOverFlowHiddenFromBody = () => {
@@ -85,4 +87,50 @@ export const isItemLInList = (array: ICartItem[], productId: string | number) =>
 
 export const getCartCount = (
   cartItems: ICartItem[]
-) => cartItems.reduce((acc, item) => acc + item.count, 0)
+) => cartItems.reduce((acc, item) => acc + +item.count, 0)
+
+
+
+
+export const showCountMessage = (count: string) => {
+  if (count == '11' || count == '12' || count == '13' || count == '14') {
+      'items'
+  }
+
+  if (count.endsWith('1')) {
+    'item'
+  }
+
+  if (count.endsWith('2') || count.endsWith('3') || count.endsWith('4')) {
+     'items'
+  }
+
+  return  'items'
+}
+
+export const deleteProductFromLS = <T>(
+  id: string,
+  key: string,
+  event: EventCallable<T>,
+  setShouldShowEmpty: (arg0: boolean) => void,
+  message: string,
+  withToast = true
+) => {
+  let items = JSON.parse(localStorage.getItem(key) as string)
+
+  if (!items) {
+    items = []
+  }
+
+  const updatedItems = items.filter(
+    (item: { clientId: string }) => item.clientId !== id
+  )
+
+  localStorage.setItem(key, JSON.stringify(updatedItems))
+  event(updatedItems)
+  withToast && toast.success(message)
+
+  if (!updatedItems.length) {
+    setShouldShowEmpty(true)
+  }
+}

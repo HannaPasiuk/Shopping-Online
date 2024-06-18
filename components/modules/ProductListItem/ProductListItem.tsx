@@ -20,13 +20,15 @@ import { setIsAddToFavorites } from "@/context/favorites"
 
 
 
+
 const ProductListItem = ({ item }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
   const isAuth = useUnit($isAuth)
   const {
     addToCartSpinner,
     setAddToCartSpinner,
-    currentCartByAuth}
+    currentCartByAuth,
+    product}
     = useCartAction()
 
   const isProductInCart = isItemLInList(currentCartByAuth, item._id)
@@ -40,11 +42,7 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
   const addToCart = () => {
   addItemToCart(item, setAddToCartSpinner, 1)
   setIsAddToFavorites(false)
-   if(!isAuth){
-    toast.success('Added')
-   }
   }
-
 
   return (
     <li className={styles.list__item}>

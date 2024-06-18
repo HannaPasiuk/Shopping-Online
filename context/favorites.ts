@@ -1,6 +1,6 @@
 import { handleJWTError } from "@/lib/utils/errors"
 import { IAddProductToCartFx } from "@/types/cart"
-import { IFavoriteItem } from "@/types/favorites"
+import { IAddProductsFromLSToFavoriteFx, IDeleteFavoriteItemsFx, IFavoriteItem } from "@/types/favorites"
 import { createDomain, createEffect, sample } from "effector"
 import toast from "react-hot-toast"
 import api from "@/api/apiInstants"
@@ -13,6 +13,12 @@ import api from "@/api/apiInstants"
   export const setFavoritesFromLS = favorites.createEvent<IFavoriteItem[]>()
   export const setShouldShowEmptyFavorites = favorites.createEvent<boolean>()
   export const setIsAddToFavorites = favorites.createEvent<boolean>()
+ export const addProductsFromLSToFavorites =
+  favorites.createEvent<IAddProductsFromLSToFavoriteFx>()
+  export const deleteProductFromFavorites =
+  favorites.createEvent<IDeleteFavoriteItemsFx>()
+
+
 
 
   export const getFavoriteItemsFx = createEffect(
@@ -59,7 +65,65 @@ export const addProductToFavoriteFx = createEffect(
         return newData
       }
 
-      toast.success('Added')
+      toast.success('Added to favorites')
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    } finally {
+      setSpinner(false)
+    }
+  }
+)
+
+
+export const addProductsFromLSToFavoritesFx = createEffect(
+  async ({ jwt, favoriteItems }: IAddProductsFromLSToFavoriteFx) => {
+    try {
+      const { data } = await api.post(
+        '/api/favorites/add-many',
+        { items: favoriteItems },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      )
+
+      if (data?.error) {
+        const newData: { cartItems: IFavoriteItem[] } = await handleJWTError(
+          data.error.name,
+          {
+            repeatRequestMethodName: 'addProductsFromLSToFavoritesFx',
+            payload: { items: favoriteItems },
+          }
+        )
+        return newData
+      }
+
+      loadFavoriteItems({ jwt })
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+)
+
+
+export const deleteFavoriteItemFx = createEffect(
+  async ({ jwt, id, setSpinner }: IDeleteFavoriteItemsFx) => {
+    try {
+      setSpinner(true)
+      const { data } = await api.delete(`/api/favorites/delete?id=${id}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+
+      if (data?.error) {
+        const newData: { id: string } = await handleJWTError(data.error.name, {
+          repeatRequestMethodName: 'deleteFavoriteItemFx',
+          payload: { id, setSpinner },
+        })
+        return newData
+      }
+
+      toast.success('Removed from favorites!')
       return data
     } catch (error) {
       toast.error((error as Error).message)
@@ -78,11 +142,14 @@ export const $favorites = favorites
     ).values(),
   ])
   .on(getFavoriteItemsFx.done, (_, { result }) => result)
-
+  .on(addProductsFromLSToFavoritesFx.done, (_, { result }) => result.items)
+  .on(deleteFavoriteItemFx.done, (state, { result }) =>
+    state.filter((item) => item._id !== result.id))
 
   export const $favoritesFromLS = favorites
   .createStore<IFavoriteItem[]>([])
   .on(setFavoritesFromLS, (_, favorites) => favorites)
+ 
 
 
   export const $isAddToFavorites = favorites
@@ -105,5 +172,11 @@ export const $favorites = favorites
     source: $favorites,
     fn: (_, data) => data,
     target: getFavoriteItemsFx,
+  })
+  sample({
+    clock: addProductsFromLSToFavorites,
+    source: $favorites,
+    fn: (_, data) => data,
+    target: addProductsFromLSToFavoritesFx,
   })
   

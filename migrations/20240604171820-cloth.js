@@ -17,7 +17,7 @@ module.exports = {
           isHits: true,
           description: `A haute couture mini black tulle dress from DOLCE & GABBANA,
            covered throughout in black sequins, this dress-cum-cape has a dramatic sense.`,
-          images: '/img/clothes/black-dress.jpeg',
+          images: ['/img/clothes/black-dress.jpeg'],
         },
         {
           category: 'cloth',
@@ -29,7 +29,7 @@ module.exports = {
           description: `VETEMENTS’ pink alpaca wool-blend
            cardigan is decorated with vintage-inspired crystal
             and faux pearl buttons and shaped to a relaxed fit`,
-          images: '/img/clothes/pink-sweater.jpeg',
+          images: ['/img/clothes/pink-sweater.jpeg'],
         },
         {
           category: 'cloth',
@@ -40,7 +40,7 @@ module.exports = {
           isHits: false,
           description: `A haute couture mini black tulle dress from DOLCE & GABBANA,
            covered throughout in black sequins, this dress-cum-cape has a dramatic sense.`,
-          images: '/img/clothes/pink-pants.jpeg',
+          images: ['/img/clothes/pink-pants.jpeg'],
         },
         {
           category: 'cloth',
@@ -52,7 +52,7 @@ module.exports = {
           description: `For an elevated casual look like relaxed pajama-style,
           turn to these black pants from TOM FORD made by stretch-silk satin
           weave contrasting trim seam with a logo-tipped waistband in luxurious velvet.`,
-          images: '/img/clothes/black-pants.jpeg',
+          images: ['/img/clothes/black-pants.jpeg'],
         },
         {
           category: 'cloth',
@@ -64,7 +64,7 @@ module.exports = {
           description: `Elasticated high-rise waistband by FRAME in khaki-green shorts will bring a 1980s
            sensibility to warm-weather edits. They’re made from cotton-blend denim that includes
             elements of recycled cotton and polyester, featuring with belt loops and multipockets. `,
-          images: '/img/clothes/green-shorts.jpg',
+          images: ['/img/clothes/green-shorts.jpg'],
         },
         {
           category: 'cloth',
@@ -75,7 +75,7 @@ module.exports = {
           isHits: false,
           description: `Long sleeve v-neck jumper detailed with tiny holes.
           This item belongs to Lifestylepop and is shipped from Cyprus..`,
-          images: '/img/clothes/black-sweater.jpeg',
+          images: ['/img/clothes/black-sweater.jpeg'],
         },
         {
           category: 'cloth',
@@ -86,7 +86,7 @@ module.exports = {
           isHits: false,
           description: `TOTEME white silk shorts with black crochet
            knit topstitching throughout and two side pockets.`,
-          images: '/img/clothes/white-shorts.jpeg',
+          images: ['/img/clothes/white-shorts.jpeg'],
         },
         {
           category: 'cloth',
@@ -96,7 +96,7 @@ module.exports = {
           color: 'jeans',
           isHits: false,
           description: `Denim shirt with a pocket on the left side and closes with black buttons.`,
-          images: '/img/clothes/jeans-shirts.jpeg',
+          images: ['/img/clothes/jeans-shirts.jpeg'],
         },
         {
           category: 'cloth',
@@ -108,7 +108,7 @@ module.exports = {
           description: `Mirror sequin shirt with long sleeves featuring 
           a collar style, a front buttons fastening and a relaxed fit.
           Made in Italy.`,
-          images: '/img/clothes/blue-shirts.jpg',
+          images: ['/img/clothes/blue-shirts.jpg'],
         },
         {
           category: 'cloth',
@@ -118,7 +118,7 @@ module.exports = {
           color: 'pink',
           isHits: false,
           description: `Crystal-embellished Pintucked Silk-organza Blouse.`,
-          images:  '/img/clothes/pink-blouse.jpeg',
+          images: ['/img/clothes/pink-blouse.jpeg'],
         }
       ]
       )

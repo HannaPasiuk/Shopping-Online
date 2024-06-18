@@ -15,14 +15,22 @@ export const useCartAction = () => {
   const [addToCartSpinner, setAddToCartSpinner] = useState(false);
   const [count, setCount] = useState(0);
 
+  const existingItem = currentCartByAuth.find(
+    (item) => item.productId === product._id 
+  )
+
   const handleAddToCart = (countFromCounter?: number) => {
-    if (isPoductInCart) {
+    if (existingItem) {
       if (!isUserAuth()) {
         addCartItemToLs(product, countFromCounter || 1);
         return;
       }
     }
+      const auth = JSON.parse(localStorage.getItem('auth') as string)
+      addCartItemToLs(product, countFromCounter || 1)
+      return
   };
+
   return {
     product,
     addToCartSpinner,

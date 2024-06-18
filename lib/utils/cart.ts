@@ -2,6 +2,7 @@ import { addProductToCart, setCartFromLS } from "@/context/cart";
 import { ICartItem } from "@/types/cart";
 import { IProduct } from "@/types/common";
 import { idGenerator, isUserAuth } from "./common";
+import toast from "react-hot-toast";
 
 
 
@@ -79,6 +80,7 @@ export const addCartItemToLs = (
     },
   ];
   localStorage.setItem("cart", JSON.stringify(cart));
+  toast.success("Added to cart");
   setCartFromLS(cart as ICartItem[]);
   return clientId;
 };

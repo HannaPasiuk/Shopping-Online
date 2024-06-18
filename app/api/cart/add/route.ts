@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getAuthRouteData, parseJwt } from "@/lib/utils/api-routes";
 
+
 export async function POST(req: Request) {
   try {
     const { db, validatedTokenResult, reqBody, token } = await getAuthRouteData(
@@ -34,7 +35,6 @@ export async function POST(req: Request) {
         status: 404,
       });
     }
-
     const newCartItem = {
       userId: user?._id,
       productId: productItem._id,

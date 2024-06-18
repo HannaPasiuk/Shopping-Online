@@ -17,7 +17,7 @@ export const useFavoritesAction = (product: IProduct) => {
   const handleAddProductToFavorites = () => {
     if (product.type) {
       if (existingItem) {
-        toast.success('Added')
+        toast.success('Added to favorites')
         return
       }
 

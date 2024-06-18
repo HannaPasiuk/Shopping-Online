@@ -14,6 +14,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ProductCountByCart from "../ProductListItem/ProductCountByCart";
 import styles from '@/styles/product-cart-indicator/index.module.scss'
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth";
+import { $favorites, $favoritesFromLS, addProductsFromLSToFavorites, setFavoritesFromLS } from "@/context/favorites";
 
 
 
@@ -25,7 +26,7 @@ const Header = () => {
     const isAuth = useUnit($isAuth)
     const loginCheckSpinner = useUnit(loginCheckFx.pending)
     const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
-  console.log(currentCartByAuth);
+    const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)
  
 
   const handleOpenMenu = () => {
@@ -40,10 +41,15 @@ const Header = () => {
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart') as string)
+    const favorites = JSON.parse(localStorage.getItem('favorites') as string)
     triggerLoginCheck()
 
     if(cart){
       setCartFromLS(cart)
+    }
+
+    if(favorites){
+      setFavoritesFromLS(favorites)
     }
 
   }, [])
@@ -52,11 +58,19 @@ const Header = () => {
     if(isAuth){
       const auth = JSON.parse(localStorage.getItem('auth') as string)
       const cartFromLs = JSON.parse(localStorage.getItem('cart') as string)
+      const favoritesFromLs = JSON.parse(localStorage.getItem('favorites') as string)
 
       if(cartFromLs && Array.isArray(cartFromLs)){
         addProductsFromLSToCart({
           jwt: auth.accessToken,
           cartItems: cartFromLs
+        })
+      }
+
+      if (favoritesFromLs && Array.isArray(favoritesFromLs)) {
+        addProductsFromLSToFavorites({
+          jwt: auth.accessToken,
+          favoriteItems: favoritesFromLs
         })
       }
     }
@@ -74,22 +88,26 @@ const Header = () => {
         </div>
         <ul className="header__links list-reset">
           <li className="header__links__item">
-            <button title="search" className="btn-reset header__links__item__btn header__links__item__btn--search"
+            <button title="/search" className="btn-reset header__links__item__btn header__links__item__btn--search"
               onClick={handleOpenSearchModal} />
           </li>
 
           <li className="header__links__item">
-            <Link href='favourites' className="header__links__item__btn header__links__item__btn--favorites"></Link>
+            <Link href='/favorites' className="header__links__item__btn header__links__item__btn--favorites">
+            {!!currentFavoritesByAuth.length && (
+                <span className={`${styles.indicator} ${styles.not_epty}`} />
+              )}
+            </Link>
           </li>
 
           <li className="header__links__item">
-            <Link href='compare' className="header__links__item__btn header__links__item__btn--compare"></Link>
+            <Link href='/compare' className="header__links__item__btn header__links__item__btn--compare"></Link>
           </li>
 
           <li className="header__links__item">
-            <Link href='card' className="header__links__item__btn header__links__item__btn--card"></Link>
+            <Link href='/card' className="header__links__item__btn header__links__item__btn--card"></Link>
            {currentCartByAuth.length > 0 ? 
-           <span className={styles.count}>
+           <span className={`${styles.count} ${styles.not_epty}`}>
               <ProductCountByCart products={currentCartByAuth}/>
               </span> : ''
               } 
@@ -102,8 +120,10 @@ const Header = () => {
             ) : (
               <button type="button"
                 className=" btn-reset header__links__item__btn header__links__item__btn--profile"
-                style={isAuth ? { WebkitMask: 'url(/img/profile-auth.svg) no-repeat 50% 50%', mask: 'url(/img/profile-auth.svg) no-repeat 50% 50%' }
-                  : { WebkitMask: 'url(/img/profile.svg) no-repeat 50% 50%', mask: 'url(/img/profile.svg) no-repeat 50% 50%' }
+                style={isAuth ? { WebkitMask: 'url(/img/profile-auth.svg) no-repeat 50% 50%',
+                   mask: 'url(/img/profile-auth.svg) no-repeat 50% 50%' }
+                  : { WebkitMask: 'url(/img/profile.svg) no-repeat 50% 50%', 
+                    mask: 'url(/img/profile.svg) no-repeat 50% 50%' }
                 }
                 onClick={handleOpenAuthPopup}
               />

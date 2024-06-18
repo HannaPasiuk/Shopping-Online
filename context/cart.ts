@@ -77,7 +77,7 @@ export const addProductToCartFx = createEffect(
         return newData
       }
 
-      toast.success('Added')
+      toast.success('Added to cart')
       return data
     } catch (error) {
       toast.error((error as Error).message)

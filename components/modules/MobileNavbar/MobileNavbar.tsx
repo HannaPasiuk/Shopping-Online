@@ -11,10 +11,12 @@ import ProductCountByCart from "../ProductListItem/ProductCountByCart"
 import styles from '@/styles/product-cart-indicator/index.module.scss'
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
 import { $cart, $cartFromLs } from "@/context/cart"
+import { $favorites, $favoritesFromLS } from "@/context/favorites"
+
 
 const MobileNavbar = () => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
-
+  const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)
 const handleOpenMenu = () => {
   addOverFlowHiddenToBody()
   openMenu()
@@ -37,6 +39,9 @@ const handleOpenCatalogMenu = () => {
  onClick={handleOpenCatalogMenu}>
   {'Catalog'}</button>
  <Link href="/favorites" className=" btn-reset mobile-navbar__btn">
+ {!!currentFavoritesByAuth.length && (
+   <span className={`${styles.navbar} ${styles.not_epty}`} />
+              )}
   {'Favorites'}
  </Link>
  <Link href="/Card" className='mobile-navbar__btn'> 
