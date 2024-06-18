@@ -1,5 +1,6 @@
 import { IBaseEffectProps } from './common'
 export interface ICartItem {
+  description: string
   _id: string
   clientId: string
   userId: string
@@ -34,3 +35,4 @@ export interface IDeleteCartItemBtnProps {
   callback: VoidFunction
   className?: string
 }
+export type IDeleteCartItemsFx = IBaseEffectProps

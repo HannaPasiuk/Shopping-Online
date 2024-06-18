@@ -1,4 +1,4 @@
-import { addProductToCart, setCartFromLS } from "@/context/cart";
+import { addProductToCart, deleteAllFromCart, setCartFromLS } from "@/context/cart";
 import { ICartItem } from "@/types/cart";
 import { IProduct } from "@/types/common";
 import { idGenerator, isUserAuth } from "./common";
@@ -72,7 +72,7 @@ export const addCartItemToLs = (
     {
       clientId,
       productId: product._id,
-      image: product.images[0],
+      image: product.images,
       name: product.name,
       count,
       price: product.price,
@@ -84,3 +84,29 @@ export const addCartItemToLs = (
   setCartFromLS(cart as ICartItem[]);
   return clientId;
 };
+
+
+export const updateCartItemCountInLS = (cartItemId: string, count: number) => {
+  let cart: ICartItem[] = JSON.parse(localStorage.getItem('cart') as string)
+
+  if (!cart) {
+    cart = []
+  }
+
+  const updatedCart = cart.map((item) =>
+    item.clientId === cartItemId ? { ...item, count } : item
+  )
+
+  localStorage.setItem('cart', JSON.stringify(updatedCart))
+  setCartFromLS(updatedCart as ICartItem[])
+}
+
+
+export const countWholeCartItemsAmount = (cart: ICartItem[]) =>
+  cart.reduce((defaultCount, item) => defaultCount + +item.count, 0)
+
+export const handleDeleteAllFromCart = (jwt: string) => {
+  deleteAllFromCart({ jwt })
+
+  localStorage.setItem('cart', JSON.stringify([]))
+}

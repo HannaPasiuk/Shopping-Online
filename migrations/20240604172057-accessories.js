@@ -10,7 +10,7 @@ module.exports = {
       [
           {
           category: 'glasses',
-          price: '170€',
+          price: '170',
           name: 'FENDI',
           isHits: true,
           description: `These FENDI squared mask pilot shape sunglasses are designed with 
@@ -19,7 +19,7 @@ module.exports = {
         },
         {
           category: 'glasses',
-          price: '200€',
+          price: '200',
           name: 'GIUSEPPE DI MORABITO',
           isHits: false,
           description: `GIUSEPPE DI MORABITO sunglasses, 
@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           category: 'glasses',
-          price: '278€',
+          price: '278',
           name: 'PRADA',
           isHits: false,
           description: 'PRADA rectangular sunglasses in white.',

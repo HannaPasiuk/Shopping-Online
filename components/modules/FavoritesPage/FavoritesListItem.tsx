@@ -17,7 +17,7 @@ import {
 import { IProduct } from "@/types/common"
 import { addCartItemToLs } from "@/lib/utils/cart"
 import DeleteItemBtn from "@/components/elements/DeleteCartItemBtn/DeleteCartItemBtn"
-import AddToCartIcon from "@/components/AddToCartIcon/AddToCartIcon"
+import AddToCartIcon from "@/components/elements/AddToCartIcon/AddToCartIcon"
 import styles from '@/styles/favorites/index.module.scss'
 
 
@@ -110,9 +110,10 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
       <p className={styles.favorites__list__item__info}>
         <span className={styles.favorites__list__item__info__name}>
           {item.name}
+          {item.description}
         </span>
         <span className={styles.favorites__list__item__info__price}>
-          {item.price} 
+          {item.price}{'$'} 
         </span>
       </p>
     </>

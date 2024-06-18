@@ -1,17 +1,15 @@
 import { IBaseEffectProps } from './common'
 
 export interface IFavoriteItem {
+  description: string
   _id: string
   clientId: string
   userId: string
   productId: string
   images: string
   name: string
-  size: string
   price: string
-  vendorCode: string
   category: string
-  inStock: string
   color: string
 }
 

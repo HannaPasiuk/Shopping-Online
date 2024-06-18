@@ -42,3 +42,8 @@ export interface IEmptyPageContentProps {
   oopsWord?: string
   title?: string
 }
+
+export interface IOrderInfoBlockProps {
+  isCorrectPromotionalCode?: boolean
+  isOrderPage?: boolean
+}

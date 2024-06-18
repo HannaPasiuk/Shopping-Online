@@ -1,5 +1,5 @@
 
-import { IAddProductToCartFx, IAddProductsFromLSToCartFx, ICartItem, IUpdateCartItemCountFx } from "@/types/cart";
+import { IAddProductToCartFx, IAddProductsFromLSToCartFx, ICartItem, IDeleteCartItemsFx, IUpdateCartItemCountFx } from "@/types/cart";
 import { createDomain, createEffect, sample } from "effector";
 import api from "@/api/apiInstants";
 import { handleJWTError } from "@/lib/utils/errors";
@@ -13,7 +13,10 @@ export const setCartFromLS = cart.createEvent<ICartItem[]>()
 export const addProductToCart = cart.createEvent<IAddProductToCartFx>()
 export const addProductsFromLSToCart = cart.createEvent<IAddProductsFromLSToCartFx>()
 export const updateCartItemCount = cart.createEvent<IUpdateCartItemCountFx>()
-
+export const deleteProductFromCart = cart.createEvent<IDeleteCartItemsFx>()
+export const setShouldShowEmpty = cart.createEvent<boolean>()
+export const deleteAllFromCart = cart.createEvent<{ jwt: string }>()
+export const setTotalPrice = cart.createEvent<number>()
 
 
 
@@ -120,6 +123,51 @@ export const addProductsFromLSToCartFx = createEffect(
 )
 
 
+export const deleteCartItemFx = createEffect(
+  async ({ jwt, id, setSpinner }: IDeleteCartItemsFx) => {
+    try {
+      setSpinner(true)
+      const { data } = await api.delete(`/api/cart/delete?id=${id}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+
+      if (data?.error) {
+        const newData: { id: string } = await handleJWTError(data.error.name, {
+          repeatRequestMethodName: 'deleteCartItemFx',
+          payload: { id, setSpinner },
+        })
+        return newData
+      }
+
+      toast.success('Удалено из корзины!')
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    } finally {
+      setSpinner(false)
+    }
+  }
+)
+
+
+export const deleteAllFromCartFx = cart.createEffect(
+  async ({ jwt }: { jwt: string }) => {
+    try {
+      const { data } = await api.delete('/api/cart/delete-many', {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+
+      if (data?.error) {
+        handleJWTError(data.error.name, {
+          repeatRequestMethodName: 'deleteAllFromCartFx',
+        })
+      }
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+)
+
 
 
 export const $cart = cart
@@ -136,10 +184,24 @@ export const $cart = cart
       item._id === id ? { ...item, count } : item
     )
   )
-  
+  .on(deleteCartItemFx.done, (cart, { result }) =>
+    cart.filter((item) => item._id !== result.id)
+  )
+  .on(deleteAllFromCartFx.done, () => [])
+
+
+
 export const $cartFromLs = cart
 .createStore<ICartItem[]>([])
 .on(setCartFromLS, (_, cart) => cart)
+
+export const $totalPrice = cart
+  .createStore<number>(0)
+  .on(setTotalPrice, (_, value) => value)
+
+export const $shouldShowEmpty = cart
+  .createStore(false)
+  .on(setShouldShowEmpty, (_, value) => value)
 
 sample({
   clock: addProductToCart,
@@ -159,4 +221,17 @@ sample({
   source: $cart,
   fn: (_, data) => data,
   target: updateCartItemCount,
+})
+sample({
+  clock: deleteProductFromCart,
+  source: $cart,
+  fn: (_, data) => data,
+  target: deleteCartItemFx,
+})
+
+sample({
+  clock: deleteAllFromCart,
+  source: {},
+  fn: (_, data) => data,
+  target: deleteAllFromCartFx,
 })

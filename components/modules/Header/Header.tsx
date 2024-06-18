@@ -105,7 +105,7 @@ const Header = () => {
           </li>
 
           <li className="header__links__item">
-            <Link href='/card' className="header__links__item__btn header__links__item__btn--card"></Link>
+            <Link href='/cart' className="header__links__item__btn header__links__item__btn--card"></Link>
            {currentCartByAuth.length > 0 ? 
            <span className={`${styles.count} ${styles.not_epty}`}>
               <ProductCountByCart products={currentCartByAuth}/>
