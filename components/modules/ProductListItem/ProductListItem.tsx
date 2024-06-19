@@ -92,11 +92,11 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
         <h3 className={styles.list__item__title}>
           <Link href={`/catalog/${item.category}/${item._id}`}>
             {item.name}
-          </Link>
+          </Link>            
         </h3>
 
         <span className={styles.list__item__price}>
-          {item.price}
+          {item.price}{'$'}
         </span>
       </div>
        <button

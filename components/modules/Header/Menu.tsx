@@ -52,41 +52,46 @@ const Menu = () => {
   const clothLinks = [
     {
       id: 1,
-      text: 't-shirts',
-      href: '/catalog/cloth?offset=0&type=t-shirts',
+      text: 'sweaters',
+      href: '/catalog/cloth?offset=0&type=sweaters',
     },
     {
       id: 2,
-      text: 'long-sleeves',
-      href: '/catalog/cloth?offset=0&type=long-sleeves',
+      text: 'dresses',
+      href: '/catalog/cloth?offset=0&type=dresses',
     },
     {
       id: 3,
-      text: "hoodie",
-      href: '/catalog/cloth?offset=0&type=hoodie',
+      text: "pants",
+      href: '/catalog/cloth?offset=0&type=pants',
     },
     {
       id: 4,
-      text: "outerwear",
-      href: '/catalog/cloth?offset=0&type=outerwear',
+      text: "blouse",
+      href: '/catalog/cloth?offset=0&type=blouse',
+    },
+    {
+      id: 5,
+      text: "shirts",
+      href: '/catalog/cloth?offset=0&type=shirts',
+    },
+    {
+      id: 6,
+      text: "shorts",
+      href: '/catalog/cloth?offset=0&type=shorts',
     },
   ]
 
   const accessoriesLinks = [
     {
       id: 1,
-      text: "bags",
-      href: '/catalog/accessories?offset=0&type=bags',
+      text: "glasses",
+      href: '/catalog/accessories?offset=0&type=glasses',
     },
     {
       id: 2,
-      text: "headdress",
-      href: '/catalog/accessories?offset=0&type=headdress',
-    },
-    {
-      id: 3,
-      text: "umbrella",
-      href: '/catalog/accessories?offset=0&type=umbrella',
+      text: "bags",
+      href: '/catalog/accessories?offset=0&type=bags',
     },
   ]
 

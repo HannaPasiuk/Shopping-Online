@@ -5,14 +5,18 @@
   height: 100%;
   padding-top: 104px;
   padding-bottom: 200px;
-  background: radial-gradient(112.11% 111.8% at 100% 0%, #4075FF 0%, rgba(64, 117, 255, 0.00) 100%),
-   radial-gradient(111.72% 111.46% at 27% 0%, #a55bcb 0%, rgba(197, 22, 217, 0) 100%), #9466FF;
-
-
+  background-image: url('/img/bg.png');
+  background-repeat: no-repeat;
+   background-position: bottom;
+   background-size: cover;
+   background-color: rgb(0, 0, 0);
+   opacity: 0.5;
+   margin-top: 98px;
 
   &__title__text {
     font-weight: 700;
-    font-size: 150px;
+    width: 150vh;
+    font-size: 100px;
     line-height: 120%;
     font-style: italic;
     margin-left: 50px;

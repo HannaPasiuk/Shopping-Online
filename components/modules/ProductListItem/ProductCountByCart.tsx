@@ -5,7 +5,7 @@ import styles from '@/styles/product-cart-indicator/index.module.scss'
 const ProductCountByCart = ({products}: {products: ICartItem[]}) => (
     <>
         {!!getCartCount(products)  && (
-                <span>{getCartCount(products)}</span>
+      <span className={styles.product__count}>{getCartCount(products)}</span>
         )}
     </>
 )
