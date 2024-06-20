@@ -1,10 +1,10 @@
-
+import { IContentTitleProps } from '@/types/modules'
 import styles from '@/styles/empty-content/index.module.scss'
 
-const ContentTitle = () => (
+const ContentTitle = ({ title, oopsWord }: IContentTitleProps) => (
   <div className={styles.empty_content__title}>
-    <span>Oh...</span>
-    <span>It seems here is still empty...</span>
+    <span>{oopsWord}</span>
+    <span>{title}</span>
   </div>
 )
 
