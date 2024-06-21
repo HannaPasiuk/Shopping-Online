@@ -2,13 +2,13 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useUnit } from 'effector-react'
+import { notFound } from 'next/navigation'
+import { useEffect } from 'react'
 import { loadOneProduct, loadOneProductFx } from '@/context/goods'
 import { IProductPageProps } from '@/types/product'
 import ProductPageContent from '@/components/modules/ProductPage/ProductPageContent'
 import { $currentProduct } from '@/context/goods'
 import styles from '@/styles/product/index.module.scss'
-import { useEffect } from 'react'
-import { notFound } from 'next/navigation'
 
 const ProductPage = ({ productId, category }: IProductPageProps) => {
   const product = useUnit($currentProduct)
@@ -17,14 +17,16 @@ const ProductPage = ({ productId, category }: IProductPageProps) => {
 
   useEffect(() => {
     loadOneProduct({
-      productId,
       category,
+      productId,
     })
-  }, [])
+  }, [ ])
 
-  if (product?.errorMessage) {
+
+  if (!product) {
     notFound()
   }
+
   return (
     <div className={styles.product}>
       {productSpinner ? (

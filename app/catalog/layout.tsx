@@ -4,7 +4,7 @@ export const metadata = {
   title: 'Shopping Online | Catalog',
 }
 
-export default function ComparisonRootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode

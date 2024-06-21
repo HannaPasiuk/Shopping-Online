@@ -5,9 +5,9 @@ export interface IProduct {
   name: string;
   type: string;
   category: string;
-  count: number;
   price: string;
   images: string;
+  count: string,
   color: string;
   description: string;
   isHits: string;

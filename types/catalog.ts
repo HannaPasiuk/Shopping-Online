@@ -1,6 +1,6 @@
 export type SearchParams = { [key: string]: string | string[] | undefined }
 
-export interface IProductsPage {
+export interface IProductPage {
   searchParams: SearchParams
   pageName: string
 }
@@ -55,22 +55,6 @@ export interface ICatalogFiltersProps {
   handleApplyFiltersBySort: (arg0: string) => void
 }
 
-export interface ISizeOption {
-  id: number
-  size: string
-  checked: boolean
-}
-
-export interface ICheckboxSelectItemProps {
-  callback: (arg0: number) => void
-  item: {
-    id: number
-    size?: string
-    colorText?: string
-    checked: boolean
-  }
-  mobileClassName?: string
-}
 
 export interface IColorOption {
   id: number
