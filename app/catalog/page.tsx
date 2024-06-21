@@ -1,4 +1,4 @@
-import ProductsPage from '@/components/templetas/ProductPage/ProductPage'
+import ProductsPage from '@/components/templetas/ProductsPage/ProductsPage'
 import { SearchParams } from '@/types/catalog'
 
 export default function Catalog({
@@ -6,5 +6,5 @@ export default function Catalog({
 }: {
   searchParams?: SearchParams
 }) {
-  return <h1>Catalog</h1>
+  return <ProductsPage searchParams={searchParams || {}} pageName="catalog" />
 }

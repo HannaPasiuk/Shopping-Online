@@ -4,7 +4,14 @@ import { IProduct } from './common'
 export interface ILoadOneProductFx {
   productId: string
   category: string
-
+  setSpinner?: (arg0: boolean) => void
+}
+export interface ILoadAllProductsFx {
+  limit: number
+  offset: number
+  category: string
+  additionalParam?: string
+  isCatalog?: boolean
 }
 
 export interface IProductSizesItemProps {
@@ -34,11 +41,6 @@ export interface IAddToCartBtnProps {
   className?: string
 }
 
-export interface IProductCountBySizeProps {
-  products: ICartItem[]
-  size: string
-  withCartIcon?: boolean
-}
 
 export interface ILoadProductsByFilterFx {
   limit: number

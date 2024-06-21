@@ -8,6 +8,7 @@ import styles from '@/styles/main-page/index.module.scss'
 import useImagePreloader from '@/hooks/useImagePreloader'
 import Link from 'next/link'
 import Image from 'next/image'
+import AllLink from '@/components/elements/AllLink/AllLink'
 
 
 
@@ -17,32 +18,6 @@ const Categories = () => {
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader()
   const imgSpinnerClass = imgSpinner ? styles.img_liading : ''
 
-
-
-
-  const images = [
-    {
-      src: imgCategoriesClothes,
-      id: 1,
-      title: 'Clothes'
-    },
-    {
-      src: imgCategoriesAccessories,
-      id: 2,
-      title: 'Accessories'
-    },
-    {
-      src: imgCategoriesBags,
-      id: 3,
-      title: 'Bags'
-    },
-    {
-      src: imgCategoriesShoes,
-      id: 4,
-      title: 'Shoes'
-    }
-  ]
-
   return (
     <section className={`container ${styles.categories}`}>
       <div className={styles.categories__conteiner}>
@@ -50,7 +25,7 @@ const Categories = () => {
         <div className={styles.categories__inner}>
          
             <>
-
+            <AllLink />
               <Link
                 href="/catalog/cloth"
                 className={`${styles.categories__right} ${styles.categories__img} ${imgSpinnerClass}`}

@@ -7,7 +7,8 @@
       right: 0;
       bottom: 0;
       z-index: 2;
-
+       
+    
       &__aside {
         padding: 24px;
         position: relative;
@@ -221,7 +222,7 @@
       border-radius: 16px;
       background: #3D4555;
       box-shadow: 0px 32px 32px 0px rgba(0, 0, 0, 0.20), 0px 0px 32px 0px rgba(0, 0, 0, 0.10);
-
+   
       &.filters_mobile {
         @media (max-width: 610px) {
           display: flex;

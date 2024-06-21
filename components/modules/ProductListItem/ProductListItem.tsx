@@ -7,13 +7,11 @@ import { useMediaQuery } from "@/hooks/useMeidaQuery"
 import { useCartAction } from "@/hooks/useCartAction"
 import { addItemToCart } from "@/lib/utils/cart"
 import { isItemLInList } from "@/lib/utils/common"
-import { useUnit } from "effector-react"
-import { $isAuth } from "@/context/auth"
-import toast from "react-hot-toast"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { useFavoritesAction } from "@/hooks/useFavoritesAction"
 import { setIsAddToFavorites } from "@/context/favorites"
+import HitsProducts from "../MainPage/Hits/HitsProducts"
 
 
 
@@ -23,7 +21,7 @@ import { setIsAddToFavorites } from "@/context/favorites"
 
 const ProductListItem = ({ item }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
-  const isAuth = useUnit($isAuth)
+
   const {
     addToCartSpinner,
     setAddToCartSpinner,
@@ -46,11 +44,12 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
 
   return (
     <li className={styles.list__item}>
-
-      <span className={`${styles.list__item__label}
+  
+     {item.isHits ? (  <span className={`${styles.list__item__label}
        ${styles.list__item__new}`}>
         Hits
-      </span>
+      </span>) : ''}
+    
 
 
       <div className={styles.list__item__actions}>

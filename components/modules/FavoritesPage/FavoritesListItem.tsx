@@ -44,7 +44,7 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
     }
 
     if (!isUserAuth()) {
-      addCartItemToLs(cartItem as unknown as IProduct,  1)
+      addCartItemToLs(cartItem as unknown as IProduct, 1)
       return
     }
 
@@ -102,7 +102,8 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
       />
   
       <div className={styles.favorites__list__item__img}>
-        <Image src={item.images}
+        <Image 
+          src={item.images}
           alt={item.name}
           width={imgSize}
           height={imgSize}/>

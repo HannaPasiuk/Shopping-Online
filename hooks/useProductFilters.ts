@@ -1,101 +1,82 @@
-import { useUnit } from 'effector-react'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { loadProductsByFilter, loadProductsByFilterFx } from '@/context/goods'
+import { useUnit } from "effector-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { loadProductsByFilter, loadProductsByFilterFx } from "@/context/goods";
 import {
   checkOffsetParam,
   getSearchParamsUrl,
   updateSearchParam,
-} from '@/lib/utils/common'
-import { SearchParams } from '@/types/catalog'
-import styles from '@/styles/catalog/index.module.scss'
-import { $products } from '@/context/goods'
+} from "@/lib/utils/common";
+import { SearchParams } from "@/types/catalog";
+import styles from "@/styles/catalog/index.module.scss";
+import { $products } from "@/context/goods";
 
 export const useProductFilters = (
   searchParams: SearchParams,
   category: string,
   isCatalog = false
 ) => {
-  const products = useUnit($products)
-  const isValidOffset = checkOffsetParam(searchParams.offset)
-  const pagesCount = Math.ceil((products.count || 12) / 12)
+  const products = useUnit($products);
+  const isValidOffset = checkOffsetParam(searchParams.offset);
+  const pagesCount = Math.ceil((products.count || 4) / 4);
   const [currentPage, setCurrentPage] = useState(
     isValidOffset ? +(searchParams.offset || 0) : 0
-  )
-  const pathname = usePathname()
-  const productsSpinner = useUnit(loadProductsByFilterFx.pending)
+  );
+  const pathname = usePathname();
+  const productsSpinner = useUnit(loadProductsByFilterFx.pending);
 
   useEffect(() => {
-    const urlParams = getSearchParamsUrl()
+    const urlParams = getSearchParamsUrl();
 
-    urlParams.delete('offset')
+    urlParams.delete("offset");
 
     if (!isValidOffset) {
       loadProductsByFilter({
-        limit: 12,
+        limit: 4,
         offset: 0,
         additionalParam: urlParams.toString(),
         isCatalog,
         category,
-      })
+      });
 
-      updateSearchParam('offset', 0, pathname)
-      setCurrentPage(0)
-      return
+      updateSearchParam("offset", 0, pathname);
+      setCurrentPage(0);
+      return;
     }
 
     loadProductsByFilter({
-      limit: 12 * +(searchParams.offset || 0) + 12,
-      offset: +(searchParams.offset || 0) * 12,
+      limit: 4 * +(searchParams.offset || 0) + 4,
+      offset: +(searchParams.offset || 0) * 4,
       additionalParam: urlParams.toString(),
       isCatalog,
       category,
-    })
+    });
 
-    setCurrentPage(+(searchParams.offset || 0))
-  }, [])
+    setCurrentPage(+(searchParams.offset || 0));
+  }, []);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
-    const urlParams = getSearchParamsUrl()
+    const urlParams = getSearchParamsUrl();
 
-    urlParams.delete('offset')
+    urlParams.delete("offset");
 
     loadProductsByFilter({
-      limit: 12 * selected + 12,
-      offset: selected * 12,
+      limit: 4 * selected + 4,
+      offset: selected * 4,
       additionalParam: urlParams.toString(),
       isCatalog,
       category,
-    })
+    });
 
-    updateSearchParam('offset', selected, pathname)
-    setCurrentPage(selected)
-  }
+    updateSearchParam("offset", selected, pathname);
+    setCurrentPage(selected);
+  };
 
   const handleApplyFiltersWithCategory = (categoryType: string) => {
-    updateSearchParam('category', categoryType, pathname)
-    handlePageChange({ selected: 0 })
-  }
+    updateSearchParam("category", categoryType, pathname);
+    handlePageChange({ selected: 0 });
+  };
 
-  const handleApplyFiltersWithPrice = (priceFrom: string, priceTo: string) => {
-    updateSearchParam('priceFrom', priceFrom, pathname)
-    updateSearchParam('priceTo', priceTo, pathname)
-    handlePageChange({ selected: 0 })
-  }
-
-  
-
-  
-
-  const handleApplyFiltersBySort = (sort: string) => {
-    const urlParams = getSearchParamsUrl()
-    const offset = urlParams.get('offset')
-
-    updateSearchParam('sort', sort, pathname)
-    handlePageChange({
-      selected: checkOffsetParam(offset as string) ? +(offset || 0) : 0,
-    })
-  }
 
   const paginationProps = {
     containerClassName: `list-reset ${styles.catalog__bottom__list}`,
@@ -105,10 +86,10 @@ export const useProductFilters = (
     nextClassName: `catalog-pagination-next ${styles.catalog__bottom__list__next}`,
     breakClassName: styles.catalog__bottom__list__break,
     breakLinkClassName: styles.catalog__bottom__list__break__link,
-    breakLabe: '...',
+    breakLabe: "...",
     pageCount: pagesCount,
     forcePage: currentPage,
-  }
+  };
 
   return {
     paginationProps,
@@ -117,7 +98,5 @@ export const useProductFilters = (
     productsSpinner,
     handlePageChange,
     handleApplyFiltersWithCategory,
-    handleApplyFiltersWithPrice,
-    handleApplyFiltersBySort,
-  }
-}
+  };
+};
