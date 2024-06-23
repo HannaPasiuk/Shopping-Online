@@ -22,7 +22,7 @@ const CategorySelect = () => {
         open={open}
         toggle={toggle}
         bgClassName={styles.bg_category}
-        defaultText='Categories'
+        defaultText="categories"
         dynamicText={option}
       />
       <AnimatePresence>

@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { IProduct } from '@/types/common'
 import { useGoodsByAuth } from './useGoodsByAuth'
 import { addProductToFavorites, setIsAddToFavorites } from '@/context/favorites'
-import {  isUserAuth } from '@/lib/utils/common'
 import { addFavoriteItemToLS } from '@/lib/utils/favorites'
 import { $favorites, $favoritesFromLS } from '@/context/favorites'
+import { isUserAuth } from '@/lib/utils/common'
 
 export const useFavoritesAction = (product: IProduct) => {
   const [addToFavoritesSpinner, setAddToFavoritesSpinner] = useState(false)
@@ -15,9 +15,9 @@ export const useFavoritesAction = (product: IProduct) => {
   )
 
   const handleAddProductToFavorites = () => {
-    if (product.type) {
+
       if (existingItem) {
-        toast.success('Added to favorites')
+        toast.success('Added to favorites!')
         return
       }
 
@@ -27,7 +27,7 @@ export const useFavoritesAction = (product: IProduct) => {
       }
 
       const auth = JSON.parse(localStorage.getItem('auth') as string)
-      const clientId = addFavoriteItemToLS(product, false)
+      const clientId = addFavoriteItemToLS(product)
 
       addProductToFavorites({
         jwt: auth.accessToken,
@@ -41,7 +41,7 @@ export const useFavoritesAction = (product: IProduct) => {
 
     setIsAddToFavorites(true)
 
-  }
+  
 
   return {
     handleAddProductToFavorites,

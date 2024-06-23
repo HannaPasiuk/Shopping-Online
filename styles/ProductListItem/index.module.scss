@@ -56,11 +56,15 @@
     &__img {
       margin: auto;
       display: block;
+      width: auto;
+      height: auto;
 
       img {
         max-height: 332px;
         max-width: 352px;
         margin: 0 auto;
+        width: auto;
+        height: auto;
         background: radial-gradient(52.53% 52.53% at 50% 47.47%, #333A47 0%, rgba(29, 37, 51, 0.00) 100%);
         transition: background .2s ease-in-out;
         object-fit: contain;

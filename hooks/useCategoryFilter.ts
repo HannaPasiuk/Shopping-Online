@@ -8,19 +8,14 @@ export const useCategoryFilter = () => {
   const [option, setOption] = useState('')
   const currentOptions = Object.values(catalogCategoryOptions)[0]
   const allCategoriesTitle = 'All categories'
-  const handleSelectAllCategories = () => setOption('All categories')
+  const handleSelectAllCategories = () => setOption(allCategoriesTitle)
 
   useEffect(() => {
     const urlParams = getSearchParamsUrl()
     const typeParam = urlParams.get('type')
 
     if (typeParam) {
-      setOption(
-       [typeParam]
-          .filter((item) => item)
-          .map((item) => item.toUpperCase())
-          .join(' ')
-      )
+      setOption(typeParam)
     }
   }, [])
 

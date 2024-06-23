@@ -13,8 +13,8 @@ export interface ICatalogCategoryOptions {
   }[]
   clothCategoryOptions?: ICategoryOption[]
   accessoryCategoryOptions?: ICategoryOption[]
-  officeCategoryOptions?: ICategoryOption[]
-  souvenirsCategoryOptions?: ICategoryOption[]
+  shoesCategoryOptions?: ICategoryOption[]
+  bagsnirsCategoryOptions?: ICategoryOption[]
 }
 
 export interface ICategoryOption {
@@ -49,10 +49,9 @@ export interface ISelectBtnProps {
 }
 
 export interface ICatalogFiltersProps {
-  handleApplyFiltersWithPrice: (arg0: string, arg1: string) => void
-  handleApplyFiltersWithSizes: (sizes: string[]) => void
-  handleApplyFiltersWithColors: (sizes: string[]) => void
-  handleApplyFiltersBySort: (arg0: string) => void
+  // handleApplyFiltersWithPrice: (arg0: string, arg1: string) => void
+  // handleApplyFiltersWithColors: (sizes: string[]) => void
+  // handleApplyFiltersBySort: (arg0: string) => void
 }
 
 export interface ICheckboxSelectItemProps {

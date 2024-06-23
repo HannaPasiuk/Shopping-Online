@@ -26,7 +26,7 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
   const [addToCartSpinner, setAddToCartSpinner] = useState(false)
   const isProductInCart = currentCartByAuth.find(
     (cartItem) =>
-      cartItem.productId === item.productId 
+      cartItem._id === item.productId 
   )
   const isMedia485 = useMediaQuery(485)
   const imgSize = isMedia485 ? 132 : 160

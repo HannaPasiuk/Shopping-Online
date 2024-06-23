@@ -62,22 +62,22 @@ const Menu = () => {
     },
     {
       id: 3,
-      text: "pants",
+      text: 'pants',
       href: '/catalog/cloth?offset=0&type=pants',
     },
     {
       id: 4,
-      text: "blouse",
+      text: 'blouse',
       href: '/catalog/cloth?offset=0&type=blouse',
     },
     {
       id: 5,
-      text: "shirts",
+      text: 'shirts',
       href: '/catalog/cloth?offset=0&type=shirts',
     },
     {
       id: 6,
-      text: "shorts",
+      text: 'shorts',
       href: '/catalog/cloth?offset=0&type=shorts',
     },
   ]
@@ -87,38 +87,33 @@ const Menu = () => {
       id: 1,
       text: "glasses",
       href: '/catalog/accessories?offset=0&type=glasses',
-    },
-    {
-      id: 2,
-      text: "bags",
-      href: '/catalog/accessories?offset=0&type=bags',
-    },
+    }
   ]
 
-  const souvenirsLinks = [
+  const shoesLinks = [
     {
       id: 1,
-      text: 'business-souvenirs',
-      href: '/catalog/souvenirs?offset=0&type=business-souvenirs',
+      text: 'sneakers',
+      href: '/catalog/souvenirs?offset=0&type=sneakers',
     },
     {
       id: 2,
-      text: 'promotional-souvenirs',
-      href: '/catalog/souvenirs?offset=0&type=promotional-souvenirs',
-    },
+      text: 'flip-flops',
+      href: '/catalog/souvenirs?offset=0&type=flip-flops',
+    }
   ]
 
-  const officeLinks = [
+  const bagsLinks = [
     {
       id: 1,
-      text: "notebook",
-      href: '/catalog/office?offset=0&type=notebook',
+      text: "small",
+      href: '/catalog/office?offset=0&type=small',
     },
     {
       id: 2,
-      text: "comparison.pen",
-      href: '/catalog/office?offset=0&type=pen',
-    },
+      text: "medium",
+      href: '/catalog/office?offset=0&type=medium',
+    }
   ]
 
 
@@ -158,7 +153,7 @@ const Menu = () => {
                   >
                     <li className="nav-menu__accordion__item">
                       <Accordion
-                        title={"Cloth"}
+                        title={"cloth"}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className="list-reset nav-menu__accordion__item__list">
@@ -195,11 +190,11 @@ const Menu = () => {
 
                     <li className="nav-menu__accordion__item">
                       <Accordion
-                        title={"souvenirs"}
+                        title={"shoes"}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className="list-reset nav-menu__accordion__item__list">
-                          {souvenirsLinks.map((item) => (
+                          {shoesLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}
@@ -212,11 +207,11 @@ const Menu = () => {
 
                     <li className="nav-menu__accordion__item">
                       <Accordion
-                        title={"office"}
+                        title={"bags"}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className="list-reset nav-menu__accordion__item__list">
-                          {officeLinks.map((item) => (
+                          {bagsLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}

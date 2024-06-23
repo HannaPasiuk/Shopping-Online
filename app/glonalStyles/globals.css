@@ -33,6 +33,7 @@ body::-webkit-scrollbar-thumb:hover {
   max-width: 1535px;
   margin: 0 auto;
   padding: 0 15px;
+  margin-top: 40px;
 }
 
 .btn-reset {

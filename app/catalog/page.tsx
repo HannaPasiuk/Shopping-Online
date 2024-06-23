@@ -6,5 +6,5 @@ export default function Catalog({
 }: {
   searchParams?: SearchParams
 }) {
-  return <ProductsPage searchParams={searchParams || {}} pageName="catalog" />
+  return <ProductsPage searchParams={searchParams || {}} pageName="catalog"/>
 }
