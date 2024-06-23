@@ -19,7 +19,7 @@ const CategoryFilterList = ({
   >
     {currentOptions &&
       Object.keys(catalogCategoryOptions)[0] !== 'rootCategoryOptions' &&
-      currentOptions.map((item) => (
+      currentOptions.map((item) => 
         <SelectItem
           key={item.id}
           setOption={setOption}
@@ -27,7 +27,7 @@ const CategoryFilterList = ({
           item={item}
           isActive={option === item.title}
         />
-      ))}
+      )}
     {catalogCategoryOptions.rootCategoryOptions && (
       <>
         <li

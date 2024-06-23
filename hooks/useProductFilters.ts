@@ -73,7 +73,7 @@ export const useProductFilters = (
   };
 
   const handleApplyFiltersWithCategory = (categoryType: string) => {
-    updateSearchParam("category", categoryType, pathname);
+    updateSearchParam("type", categoryType, pathname);
     handlePageChange({ selected: 0 });
   };
 

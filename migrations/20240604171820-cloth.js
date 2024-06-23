@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           category: 'cloth',
-          type: 'dresses',
+          type: 'pants',
           price: '160',
           name: 'DOLCE & GABBANA',
           color: 'pink',
