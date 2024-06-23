@@ -55,6 +55,17 @@ export interface ICatalogFiltersProps {
   handleApplyFiltersBySort: (arg0: string) => void
 }
 
+export interface ICheckboxSelectItemProps {
+  callback: (arg0: number) => void
+  item: {
+    id: number
+    size?: string
+    colorText?: string
+    checked: boolean
+  }
+  mobileClassName?: string
+}
+
 
 export interface IColorOption {
   id: number

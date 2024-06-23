@@ -158,3 +158,15 @@ export const updateSearchParam = (
   const newPath = `${pathname}?${urlParams.toString()}`
   window.history.pushState({ path: newPath }, '', newPath)
 }
+
+export const getCheckedArrayParam = (param: string) => {
+  try {
+    const sizesArr = JSON.parse(decodeURIComponent(param))
+
+    if (Array.isArray(sizesArr) && sizesArr.length) {
+      return sizesArr
+    }
+  } catch (error) {
+    return false
+  }
+}

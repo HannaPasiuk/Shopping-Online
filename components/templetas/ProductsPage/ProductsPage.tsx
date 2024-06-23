@@ -18,19 +18,17 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
      pageName,
      pageName === 'catalog')
 
-  console.log(products);
-  
-
-  
   return (
     <>
+    <h1 className={styles.catalog__title}>Catalog</h1>
    {productsSpinner && (
     <motion.ul {...basePropsForMotion}
     className={skeletonStyles.skeleton}
     style={{marginBottom: 40}}
     >
-    {Array.from(new Array(6)).map((_, i) => (
-        <li key={i} className={skeletonStyles.skeleton__item}>
+    {Array.from(new Array(8)).map((_, i) => (
+        <li key={i}
+         className={skeletonStyles.skeleton__item}>
         <div className={skeletonStyles.skeleton__item__light}/>
         </li>
     ))}
@@ -40,12 +38,14 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
    {!productsSpinner && (
     <motion.ul {...basePropsForMotion}
     className={skeletonStyles.skeleton}
-    style={{marginBottom: 40, marginTop: 100,
-       display: 'flex', justifyContent: 'space-between'
+    style={{
+      marginBottom: 40, marginTop: 40,
+      display: 'flex', justifyContent: 'space-between',
+      flexWrap: 'wrap'
       }}
     >
     {(products.items || []).map((item) => (
-      <ProductListItem key={item._id} item={item}/>
+      <ProductListItem key={item._id} item={item} />
     ))}
     </motion.ul>
    )}
@@ -53,8 +53,6 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
 
     <div className={styles.catalog__bottom}>
       <ReactPaginate {...paginationProps}
-      // nextLabel={<></>}
-      // previousLabel={<></>}
       onPageChange={handlePageChange}
       />
     </div>

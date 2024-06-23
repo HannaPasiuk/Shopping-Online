@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { useFavoritesAction } from "@/hooks/useFavoritesAction"
 import { setIsAddToFavorites } from "@/context/favorites"
-import HitsProducts from "../MainPage/Hits/HitsProducts"
+
 
 
 
@@ -26,7 +26,7 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
     addToCartSpinner,
     setAddToCartSpinner,
     currentCartByAuth,
-    product}
+    product }
     = useCartAction()
 
   const isProductInCart = isItemLInList(currentCartByAuth, item._id)
@@ -38,30 +38,29 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
 
 
   const addToCart = () => {
-  addItemToCart(item, setAddToCartSpinner, 1)
-  setIsAddToFavorites(false)
+    addItemToCart(item, setAddToCartSpinner, 1)
+    setIsAddToFavorites(false)
   }
 
   return (
     <li className={styles.list__item}>
-  
-     {item.isHits ? (  <span className={`${styles.list__item__label}
+
+      {item.isHits ? (<span className={`${styles.list__item__label}
        ${styles.list__item__new}`}>
         Hits
       </span>) : ''}
-    
+
 
 
       <div className={styles.list__item__actions}>
-      <ProductItemActionBtn
+        <ProductItemActionBtn
           text='Favorites'
-          iconClass={`${
-            addToFavoritesSpinner
+          iconClass={`${addToFavoritesSpinner
               ? 'actions__btn_spinner'
               : isProductInFavorites
                 ? 'actions__btn_favorite_checked'
                 : 'actions__btn_favorite'
-          }`}
+            }`}
           spinner={addToFavoritesSpinner}
           callback={handleAddProductToFavorites}
         />
@@ -82,8 +81,8 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
         className={styles.list__item__img}>
         <Image src={item.images}
           alt={item.name}
-          width={224}
-          height={275}
+          width={400}
+          height={250}
         />
       </Link>
 
@@ -91,23 +90,25 @@ const ProductListItem = ({ item }: IProductListItemProps) => {
         <h3 className={styles.list__item__title}>
           <Link href={`/catalog/${item.category}/${item._id}`}>
             {item.name}
-          </Link>            
+          </Link>
         </h3>
-
+        <span className={styles.list__item__description}>
+          {item.description}
+        </span>
         <span className={styles.list__item__price}>
           {item.price}{'$'}
         </span>
       </div>
-       <button
-       type="button"
+      <button
+        type="button"
         className={`btn-reset ${styles.list__item__cart} ${isProductInCart ? 'styles.list__item__cart_added' : ''
           }`}
-        onClick={addToCart }
+        onClick={addToCart}
         disabled={addToCartSpinner || isProductInCart}>
-        {addToCartSpinner ? <FontAwesomeIcon icon={faSpinner} spin /> : 
-        isProductInCart ? 'Add to cart' : 'Add to cart'}
-      
-      </button> 
+        {addToCartSpinner ? <FontAwesomeIcon icon={faSpinner} spin /> :
+          isProductInCart ? 'Add to cart' : 'Add to cart'}
+
+      </button>
 
     </li>
   )

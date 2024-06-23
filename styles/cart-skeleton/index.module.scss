@@ -3,13 +3,16 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
 }
 
 .skeleton__item {
   background-color: #2A323F;
   overflow: hidden !important;
   padding: 0;
-  height: 185px;
+  height: 450px;
   margin-bottom: 25px;
 
   @media (max-width: 530px) {
