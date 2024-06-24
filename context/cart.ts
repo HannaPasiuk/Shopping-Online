@@ -139,7 +139,7 @@ export const deleteCartItemFx = createEffect(
         return newData
       }
 
-      toast.success('Удалено из корзины!')
+      toast.success('Removed from cart!')
       return data
     } catch (error) {
       toast.error((error as Error).message)

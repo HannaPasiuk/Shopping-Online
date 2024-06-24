@@ -4,17 +4,20 @@ import { addOverFlowHiddenToBody, handleOpenAuthPopup, triggerLoginCheck } from 
 import Link from "next/link";
 import Logo from "@/components/elements/Logo/Logo";
 import Menu from "./Menu";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { $cart, $cartFromLs, addProductsFromLSToCart, setCartFromLS } from "@/context/cart";
 import { $isAuth } from "@/context/auth";
 import { useUnit } from "effector-react";
 import { loginCheckFx } from "@/context/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { fa0, faMoon, faSpinner, faSun } from "@fortawesome/free-solid-svg-icons";
 import ProductCountByCart from "../ProductListItem/ProductCountByCart";
 import styles from '@/styles/product-cart-indicator/index.module.scss'
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth";
 import { $favorites, $favoritesFromLS, addProductsFromLSToFavorites, setFavoritesFromLS } from "@/context/favorites";
+import { Sunshiney } from "next/font/google";
+
+
 
 
 
@@ -27,7 +30,7 @@ const Header = () => {
     const loginCheckSpinner = useUnit(loginCheckFx.pending)
     const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
     const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)
- 
+    const [theme, setTheme] = useState('light');
 
   const handleOpenMenu = () => {
     addOverFlowHiddenToBody();
@@ -76,19 +79,43 @@ const Header = () => {
     }
   }, [isAuth])
 
+  const toggleTheme = () => {
+   setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+   
+  }
+   useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme;
+  
+  }, [theme]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    document.body.className = savedTheme;
+  }, []);
   return (
     <header className="header">
       <div className="conteiner header__conteiner">
         <button className="btn-reset header__burger" onClick={handleOpenMenu}>
           <span className="header__burger__line">Menu</span>
         </button>
-        <Menu />
+        <button className="btn-reset header__links__item__btn--theme"
+            onClick={toggleTheme}>
+              <FontAwesomeIcon icon={theme === 'light' ? faSun : faMoon }
+              color="#E8E9EA"
+              size="lg"  
+               />
+            </button>
+        <Menu />   
         <div className="header__logo">
           <Logo />
         </div>
+        
         <ul className="header__links list-reset">
           <li className="header__links__item">
-            <button title="/search" className="btn-reset header__links__item__btn header__links__item__btn--search"
+            <button title="/search"
+             className="btn-reset header__links__item__btn header__links__item__btn--search"
               onClick={handleOpenSearchModal} />
           </li>
 
@@ -98,10 +125,6 @@ const Header = () => {
                 <span className={`${styles.indicator} ${styles.not_epty}`} />
               )}
             </Link>
-          </li>
-
-          <li className="header__links__item">
-            <Link href='/compare' className="header__links__item__btn header__links__item__btn--compare"></Link>
           </li>
 
           <li className="header__links__item">

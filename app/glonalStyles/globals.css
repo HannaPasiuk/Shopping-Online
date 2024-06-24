@@ -1,12 +1,14 @@
 * {
   box-sizing: border-box;
 }
-
-body {
+body.light{
+  background-color: #afafaf;
+  color: #1D2533;
+}
+body.dark {
   font-family: Rostelecom Basis;
   font-weight: 400;
   background-color: #1D2533;
-  color: #E8E9EA;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

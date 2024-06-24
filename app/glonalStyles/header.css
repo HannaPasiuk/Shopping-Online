@@ -20,9 +20,9 @@
 .header{
   width: 100%;
   z-index: 3;
-  background-color: #1D2533;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5), 0px 0px 8px 0px rgba(0,0,0,0.5);
 }
+
 
 .conteiner{
   padding: 37px 50px !important;
@@ -68,18 +68,10 @@ transform: translateX(-65%);
   -webkit-mask: url('/img/favorites.svg') no-repeat 50% 50%;
   mask: url('/img/favorites.svg') no-repeat 50% 50%;
 }
-
-.header__links__item__btn--compare::before{
-  -webkit-mask: url('/img/compare.svg') no-repeat 50% 50%;
-  mask: url('/img/compare.svg') no-repeat 50% 50%;
-}
-
 .header__links__item__btn--card::before{
   -webkit-mask: url('/img/cart.svg') no-repeat 50% 50%;
   mask: url('/img/cart.svg') no-repeat 50% 50%;
 }
-
-
 
 .header__links__item__btn:hover::before{
   transition: background-color 0.2s ease-in-out;
@@ -93,6 +85,12 @@ transform: translateX(-65%);
   border-radius: 50%;
   overflow: hidden;
 }
+
+.header__links__item__btn--theme{
+  position: absolute;
+  left: 155px;
+}
+
 
 .header__links__item:not(:last-child){
   margin-right: 32px;

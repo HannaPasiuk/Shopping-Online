@@ -1,8 +1,9 @@
 .hero {
-  height: 145vh;
-  background-image: url('/img/bg--hero.jpg');  
+  height: 800px;
+  background-image: url('/img/bg-hero.avif');  
   background-repeat: no-repeat;
-   background-size: cover;
+  background-size: cover;
+  opacity: 0.5;
 }
 
 .categories {

@@ -39,12 +39,14 @@ export async function POST(req: Request) {
     const newFavoriteItem = {
       userId: user?._id,
       productId: productItem._id,
-      image: productItem.images[0],
+      image: productItem.images,
       name: productItem.name,
+      count: reqBody.count,
       price: productItem.price,
-      vendorCode: productItem.vendorCode,
-      category: reqBody.category,
+      totalPrice: productItem.price,
       clientId: reqBody.clientId,
+      color: productItem.characteristics.color,
+      category: productItem.category,
     }
 
     const { insertedId } = await db
