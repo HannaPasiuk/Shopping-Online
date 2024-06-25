@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@/hooks/useMeidaQuery";
+import Link from "next/link";
 
 
 
@@ -15,16 +16,16 @@ const Footer = () => {
         
           <ul className='list-reset footer__socials'>
             <li className='footer__socials__item'>
-              <a href=" https://www.vk.com"
+              <Link href=" https://www.vk.com"
                 className='footer__socials__item__link'/>
             </li>
             <li className='footer__socials__item'>
-              <a href="https://www.youtube.com"
+              <Link href="https://www.youtube.com"
                 className='footer__socials__item__link'
                  />
             </li>
             <li className='footer__socials__item'>
-              <a href="https://www.telegram.com"
+              <Link href="https://www.telegram.com"
                 className='footer__socials__item__link'
                  />
             </li>
