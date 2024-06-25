@@ -2,7 +2,7 @@
 import toast from 'react-hot-toast'
 import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
-import {  idGenerator, isUserAuth } from './common'
+import { idGenerator, isUserAuth } from './common'
 import {
   addProductToCart,
   deleteAllFromCart,
@@ -30,7 +30,7 @@ export const addItemToCart = (
     productId: product._id,
     category: product.category,
     count,
-    clientId: clientId,
+    clientId,
   })
 }
 
@@ -55,6 +55,7 @@ export const addCartItemToLs = (
   )
 
   if (existingItem) {
+
     const updatedCart = cartFromLS.map((item) =>
       item.productId === existingItem.productId 
         ? {
@@ -75,7 +76,7 @@ export const addCartItemToLs = (
     {
       clientId,
       productId: product._id,
-      count,
+      count: 1,
       image: product.images,
       name: product.name,
       price: product.price,
@@ -85,7 +86,7 @@ export const addCartItemToLs = (
   ]
   localStorage.setItem('cart', JSON.stringify(cart))
   setCartFromLS(cart as ICartItem[])
-  withToast && toast.success('')
+  withToast && toast.success('Added to cart')
 
   return clientId
 }

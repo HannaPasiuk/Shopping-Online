@@ -129,6 +129,7 @@ export const deleteCartItemFx = createEffect(
       setSpinner(true)
       const { data } = await api.delete(`/api/cart/delete?id=${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
+        
       })
 
       if (data?.error) {
@@ -136,11 +137,11 @@ export const deleteCartItemFx = createEffect(
           repeatRequestMethodName: 'deleteCartItemFx',
           payload: { id, setSpinner },
         })
-        return newData
+        return newData     
       }
-
       toast.success('Removed from cart!')
-      return data
+     return data
+     
     } catch (error) {
       toast.error((error as Error).message)
     } finally {

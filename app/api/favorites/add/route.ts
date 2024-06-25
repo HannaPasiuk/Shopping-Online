@@ -42,6 +42,7 @@ export async function POST(req: Request) {
       image: productItem.images,
       name: productItem.name,
       count: reqBody.count,
+      images: productItem.images,
       price: productItem.price,
       totalPrice: productItem.price,
       clientId: reqBody.clientId,

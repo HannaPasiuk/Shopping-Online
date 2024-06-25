@@ -39,7 +39,7 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
     const cartItem = {
       ...item,
       _id: item.productId,
-      images: [item.image],
+      images: item.image,
       characteristics: { color: item.color },
     }
 
