@@ -6,7 +6,7 @@ export interface IFavoriteItem {
   clientId: string
   userId: string
   productId: string
-  images: string
+  image: string
   name: string
   price: string
   category: string

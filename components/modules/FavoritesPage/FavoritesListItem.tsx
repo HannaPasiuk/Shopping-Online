@@ -1,32 +1,32 @@
-import { $cart, $cartFromLs, addProductToCart } from "@/context/cart"
-import { useGoodsByAuth } from "@/hooks/useGoodsByAuth"
-import { useMediaQuery } from "@/hooks/useMeidaQuery"
-import { useProductDelete } from "@/hooks/useProductDelete"
-import { IFavoriteItem } from "@/types/favorites"
+import { useState } from 'react'
 import Image from 'next/image'
-import { useState } from "react"
+import { IFavoriteItem } from '@/types/favorites'
+import { addProductToCart } from '@/context/cart'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
+import DeleteItemBtn from '@/components/elements/DeleteCartItemBtn/DeleteCartItemBtn'
+import AddToCartIcon from '@/components/elements/AddToCartIcon/AddToCartIcon'
+import { useMediaQuery } from '@/hooks/useMeidaQuery'
+import {
+  deleteProductFromLS,
+  isUserAuth,
+} from '@/lib/utils/common'
+import styles from '@/styles/favorites/index.module.scss'
+import { addCartItemToLS } from '@/lib/utils/cart'
+import { IProduct } from '@/types/common'
 import {
   deleteProductFromFavorites,
   setFavoritesFromLS,
   setShouldShowEmptyFavorites,
 } from '@/context/favorites'
-import {
-  deleteProductFromLS,
-  isUserAuth,
-} from '@/lib/utils/common'
-import { IProduct } from "@/types/common"
-import { addCartItemToLs } from "@/lib/utils/cart"
-import DeleteItemBtn from "@/components/elements/DeleteCartItemBtn/DeleteCartItemBtn"
-import AddToCartIcon from "@/components/elements/AddToCartIcon/AddToCartIcon"
-import styles from '@/styles/favorites/index.module.scss'
-
+import { useProductDelete } from '@/hooks/useProductDelete'
+import { $cart, $cartFromLs } from '@/context/cart'
 
 const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const [addToCartSpinner, setAddToCartSpinner] = useState(false)
   const isProductInCart = currentCartByAuth.find(
     (cartItem) =>
-      cartItem._id === item.productId 
+      cartItem.productId === item.productId 
   )
   const isMedia485 = useMediaQuery(485)
   const imgSize = isMedia485 ? 132 : 160
@@ -39,19 +39,22 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
     const cartItem = {
       ...item,
       _id: item.productId,
-      images: item.images,
-      color: item.color ,
+      images: [item.image],
+      characteristics: { color: item.color },
     }
 
     if (!isUserAuth()) {
-      addCartItemToLs(cartItem as unknown as IProduct, 1)
+      addCartItemToLS(cartItem as unknown as IProduct,  1)
       return
     }
 
     const auth = JSON.parse(localStorage.getItem('auth') as string)
 
-    const clientId = addCartItemToLs(
-      cartItem as unknown as IProduct,1)
+    const clientId = addCartItemToLS(
+      cartItem as unknown as IProduct,
+      1,
+      false
+    )
 
     addProductToCart({
       jwt: auth.accessToken,
@@ -100,21 +103,20 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
         className={styles.favorites__list__item__cart}
         addedClassName={styles.favorites__list__item__cart_added}
       />
-  
-      <div className={styles.favorites__list__item__img}>
-        <Image 
-          src={item.images}
+      <div className={`${styles.favorites__list__item__img} ${styles.cart__list__item__block}`}>
+        <Image
+          src={item.image}
           alt={item.name}
           width={imgSize}
-          height={imgSize}/>
+          height={imgSize}
+        />
       </div>
       <p className={styles.favorites__list__item__info}>
         <span className={styles.favorites__list__item__info__name}>
           {item.name}
-          {item.description}
         </span>
         <span className={styles.favorites__list__item__info__price}>
-          {item.price}{'$'} 
+          {+item.price}{'$'}
         </span>
       </p>
     </>

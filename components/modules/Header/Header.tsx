@@ -10,27 +10,20 @@ import { $isAuth } from "@/context/auth";
 import { useUnit } from "effector-react";
 import { loginCheckFx } from "@/context/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fa0, faMoon, faSpinner, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSpinner, faSun } from "@fortawesome/free-solid-svg-icons";
 import ProductCountByCart from "../ProductListItem/ProductCountByCart";
 import styles from '@/styles/product-cart-indicator/index.module.scss'
 import { useGoodsByAuth } from "@/hooks/useGoodsByAuth";
 import { $favorites, $favoritesFromLS, addProductsFromLSToFavorites, setFavoritesFromLS } from "@/context/favorites";
-import { Sunshiney } from "next/font/google";
-
-
-
-
-
-
 
 
 
 const Header = () => {
-    const isAuth = useUnit($isAuth)
-    const loginCheckSpinner = useUnit(loginCheckFx.pending)
-    const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
-    const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)
-    const [theme, setTheme] = useState('light');
+  const isAuth = useUnit($isAuth)
+  const loginCheckSpinner = useUnit(loginCheckFx.pending)
+  const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs);
+  const currentFavoritesByAuth = useGoodsByAuth($favorites, $favoritesFromLS)
+  const [theme, setTheme] = useState('');
 
   const handleOpenMenu = () => {
     addOverFlowHiddenToBody();
@@ -47,23 +40,23 @@ const Header = () => {
     const favorites = JSON.parse(localStorage.getItem('favorites') as string)
     triggerLoginCheck()
 
-    if(cart){
+    if (cart) {
       setCartFromLS(cart)
     }
 
-    if(favorites){
+    if (favorites) {
       setFavoritesFromLS(favorites)
     }
 
   }, [])
 
   useEffect(() => {
-    if(isAuth){
+    if (isAuth) {
       const auth = JSON.parse(localStorage.getItem('auth') as string)
       const cartFromLs = JSON.parse(localStorage.getItem('cart') as string)
       const favoritesFromLs = JSON.parse(localStorage.getItem('favorites') as string)
 
-      if(cartFromLs && Array.isArray(cartFromLs)){
+      if (cartFromLs && Array.isArray(cartFromLs)) {
         addProductsFromLSToCart({
           jwt: auth.accessToken,
           cartItems: cartFromLs
@@ -80,14 +73,12 @@ const Header = () => {
   }, [isAuth])
 
   const toggleTheme = () => {
-   setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
-   
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.body.className = newTheme;
   }
-   useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.body.className = theme;
-  
-  }, [theme]);
+
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -101,27 +92,27 @@ const Header = () => {
           <span className="header__burger__line">Menu</span>
         </button>
         <button className="btn-reset header__links__item__btn--theme"
-            onClick={toggleTheme}>
-              <FontAwesomeIcon icon={theme === 'light' ? faSun : faMoon }
-              color="#E8E9EA"
-              size="lg"  
-               />
-            </button>
-        <Menu />   
+          onClick={toggleTheme}>
+          <FontAwesomeIcon icon={theme === 'light' ? faSun : faMoon}
+            color="#E8E9EA"
+            size="lg"
+          />
+        </button>
+        <Menu />
         <div className="header__logo">
           <Logo />
         </div>
-        
+
         <ul className="header__links list-reset">
           <li className="header__links__item">
             <button title="/search"
-             className="btn-reset header__links__item__btn header__links__item__btn--search"
+              className="btn-reset header__links__item__btn header__links__item__btn--search"
               onClick={handleOpenSearchModal} />
           </li>
 
           <li className="header__links__item">
             <Link href='/favorites' className="header__links__item__btn header__links__item__btn--favorites">
-            {!!currentFavoritesByAuth.length && (
+              {!!currentFavoritesByAuth.length && (
                 <span className={`${styles.indicator} ${styles.not_epty}`} />
               )}
             </Link>
@@ -129,12 +120,12 @@ const Header = () => {
 
           <li className="header__links__item">
             <Link href='/cart' className="header__links__item__btn header__links__item__btn--card"></Link>
-           {currentCartByAuth.length > 0 ? 
-           <span className={`${styles.count} ${styles.not_epty}`}>
-              <ProductCountByCart products={currentCartByAuth}/>
+            {currentCartByAuth.length > 0 ?
+              <span className={`${styles.count} ${styles.not_epty}`}>
+                <ProductCountByCart products={currentCartByAuth} />
               </span> : ''
-              } 
-           
+            }
+
           </li>
 
           <li className="header__links__item header__links__item--profile">
@@ -143,10 +134,14 @@ const Header = () => {
             ) : (
               <button type="button"
                 className=" btn-reset header__links__item__btn header__links__item__btn--profile"
-                style={isAuth ? { WebkitMask: 'url(/img/profile-auth.svg) no-repeat 50% 50%',
-                   mask: 'url(/img/profile-auth.svg) no-repeat 50% 50%' }
-                  : { WebkitMask: 'url(/img/profile.svg) no-repeat 50% 50%', 
-                    mask: 'url(/img/profile.svg) no-repeat 50% 50%' }
+                style={isAuth ? {
+                  WebkitMask: 'url(/img/profile-auth.svg) no-repeat 50% 50%',
+                  mask: 'url(/img/profile-auth.svg) no-repeat 50% 50%'
+                }
+                  : {
+                    WebkitMask: 'url(/img/profile.svg) no-repeat 50% 50%',
+                    mask: 'url(/img/profile.svg) no-repeat 50% 50%'
+                  }
                 }
                 onClick={handleOpenAuthPopup}
               />
