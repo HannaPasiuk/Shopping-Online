@@ -1,7 +1,7 @@
 import { updateCartItemCount } from '@/context/cart'
 import { updateCartItemCountInLS } from '@/lib/utils/cart'
 import { isUserAuth } from '@/lib/utils/common'
-import { IProductCounterProps } from '@/types/goods'
+import { IProductCounterProps } from '@/types/goots'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
@@ -35,11 +35,11 @@ const ProductCounter = ({
     } else {
       setDisableIncrease(false)
     }
-  }, [count, currentTotalCount])
+  }, [count, currentTotalCount, setCount])
 
   useEffect(() => {
     setCount(currentInitialCount as number)
-  }, [currentInitialCount])
+  })
 
   const updateCountWithRequest = (count: number) => {
     updateCartItemCountInLS(cartItem.clientId, count)

@@ -112,7 +112,7 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
       default:
         break
     }
-  }, [])
+  })
   return (
     <>
       <Link className={stylesTitle.title__catalog}

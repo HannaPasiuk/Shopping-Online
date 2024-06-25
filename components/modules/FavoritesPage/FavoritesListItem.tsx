@@ -11,7 +11,7 @@ import {
   isUserAuth,
 } from '@/lib/utils/common'
 import styles from '@/styles/favorites/index.module.scss'
-import { addCartItemToLS } from '@/lib/utils/cart'
+import { addCartItemToLs } from '@/lib/utils/cart'
 import { IProduct } from '@/types/common'
 import {
   deleteProductFromFavorites,
@@ -44,13 +44,13 @@ const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {
     }
 
     if (!isUserAuth()) {
-      addCartItemToLS(cartItem as unknown as IProduct,  1)
+      addCartItemToLs(cartItem as unknown as IProduct,  1)
       return
     }
 
     const auth = JSON.parse(localStorage.getItem('auth') as string)
 
-    const clientId = addCartItemToLS(
+    const clientId = addCartItemToLs(
       cartItem as unknown as IProduct,
       1,
       false

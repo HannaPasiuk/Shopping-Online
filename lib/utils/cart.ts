@@ -17,13 +17,13 @@ export const addItemToCart = (
   count: number,
 ) => {
   if (!isUserAuth()) {
-    addCartItemToLS(product, count)
+    addCartItemToLs(product, count)
     return
   }
 
   const auth = JSON.parse(localStorage.getItem('auth') as string)
 
-  const clientId = addCartItemToLS(product, count, false)
+  const clientId = addCartItemToLs(product, count, false)
   addProductToCart({
     jwt: auth.accessToken,
     setSpinner,
@@ -34,7 +34,7 @@ export const addItemToCart = (
   })
 }
 
-export const addCartItemToLS = (
+export const addCartItemToLs = (
   product: IProduct,
   count: number,
   withToast = true
@@ -55,8 +55,6 @@ export const addCartItemToLS = (
   )
 
   if (existingItem) {
-    const updatedCountWithSize =
-      existingItem.count !== count ? count : +existingItem.count + 1
     const updatedCart = cartFromLS.map((item) =>
       item.productId === existingItem.productId 
         ? {
@@ -68,7 +66,7 @@ export const addCartItemToLS = (
 
     localStorage.setItem('cart', JSON.stringify(updatedCart))
     setCartFromLS(updatedCart)
-    // toast.success('Added to cart')
+    toast.success('Added to cart')
     return existingItem.clientId
   }
 
@@ -87,7 +85,7 @@ export const addCartItemToLS = (
   ]
   localStorage.setItem('cart', JSON.stringify(cart))
   setCartFromLS(cart as ICartItem[])
-  withToast && toast.success('Added to cart')
+  withToast && toast.success('')
 
   return clientId
 }

@@ -14,13 +14,6 @@ export interface ILoadAllProductsFx {
   isCatalog?: boolean
 }
 
-export interface IProductSizesItemProps {
-  currentSize: [string, boolean]
-  selectedSize: string
-  setSelectedSize: (arg0: string) => void
-  currentCartItems: ICartItem[]
-}
-
 export interface IProductCounterProps {
   className: string
   count: number
